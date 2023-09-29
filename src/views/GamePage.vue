@@ -32,7 +32,7 @@
             </div>
         </div>
 
-        <div class="col-span-2 p-6 bg-neutral-800 rounded-xl">
+        <div class="col-span-2 p-6 bg-neutral-900 rounded-xl">
             <life-counter />
         </div>
     </div>

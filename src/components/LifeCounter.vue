@@ -3,31 +3,37 @@
         <h3 class="text-xl font-semibold">Life Counter</h3>
 
         <div class="flex justify-center space-x-4">
-            <div class="flex flex-col justify-center"><i class="text-2xl fa-solid fa-circle-minus"></i></div>
+            <div class="flex flex-col justify-center ">
+                <i @click="changeLife(-1)"
+                    class="text-2xl cursor-pointer text-neutral-500 fa-solid fa-circle-minus hover:text-white"></i>
+            </div>
             <span class="font-bold text-8xl">
                 {{ currentLife.toString() }}
             </span>
-            <div class="flex flex-col justify-center"><i class="text-2xl fa-solid fa-circle-plus"></i></div>
+            <div class="flex flex-col justify-center ">
+                <i @click="changeLife(1)"
+                    class="text-2xl cursor-pointer text-neutral-500 fa-solid fa-circle-plus hover:text-white"></i>
+            </div>
         </div>
 
         <div class="flex justify-center space-x-2">
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-neutral-600 rounded-full hover:text-gray-800 hover:bg-neutral-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
                 @click="changeLife(-10)">-10</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-neutral-600 rounded-full hover:text-gray-800 hover:bg-neutral-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
                 @click="changeLife(-5)">-5</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-neutral-600 rounded-full hover:text-gray-800 hover:bg-neutral-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
                 @click="changeLife(-1)">-1</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-neutral-600 rounded-full hover:text-gray-800 hover:bg-neutral-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
                 @click="changeLife(1)">+1</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-neutral-600 rounded-full hover:text-gray-800 hover:bg-neutral-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
                 @click="changeLife(5)">+5</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-neutral-600 rounded-full hover:text-gray-800 hover:bg-neutral-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
                 @click="changeLife(10)">+10</button>
         </div>
     </div>
