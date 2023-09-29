@@ -7,6 +7,6 @@
     src: url('/Beleren.woff') format('woff');
 }
 
-h1 {
+h1, .font-beleren {
     font-family: 'Beleren';
 }
