@@ -7,10 +7,9 @@
             }
         }" :class="{
     'pointer-events-none': disabled,
+    'transition-all cursor-pointer hover:scale-105': !disabled,
 }">
-            <div class="rounded-xl" :class="{
-                'transition-all cursor-pointer hover:shadow-xl hover:scale-105': !disabled,
-            }">
+            <div class="rounded-xl">
                 <div class="flex">
                     <div class="relative">
                         <img :src="image" class="rounded-xl">
@@ -23,12 +22,12 @@
                     </div>
                 </div>
             </div>
-        </router-link>
-        <div class="flex flex-col space-y-2 text-center">
-            <h1 class="text-4xl font-semibold">{{ gameTitle }}</h1>
+            <div class="flex flex-col mt-4 space-y-2 text-center">
+                <h1 class="text-4xl font-semibold">{{ gameTitle }}</h1>
 
-            <p>{{ gameDescription }}</p>
-        </div>
+                <p>{{ gameDescription }}</p>
+            </div>
+        </router-link>
     </div>
 </template>
 
