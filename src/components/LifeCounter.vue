@@ -12,22 +12,22 @@
 
         <div class="flex justify-center space-x-2">
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-slate-600 rounded-full hover:text-gray-800 hover:bg-slate-300"
                 @click="changeLife(-10)">-10</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-slate-600 rounded-full hover:text-gray-800 hover:bg-slate-300"
                 @click="changeLife(-5)">-5</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-slate-600 rounded-full hover:text-gray-800 hover:bg-slate-300"
                 @click="changeLife(-1)">-1</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-slate-600 rounded-full hover:text-gray-800 hover:bg-slate-300"
                 @click="changeLife(1)">+1</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-slate-600 rounded-full hover:text-gray-800 hover:bg-slate-300"
                 @click="changeLife(5)">+5</button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-gray-600 rounded-full hover:text-gray-800 hover:bg-gray-300"
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold bg-slate-600 rounded-full hover:text-gray-800 hover:bg-slate-300"
                 @click="changeLife(10)">+10</button>
         </div>
     </div>

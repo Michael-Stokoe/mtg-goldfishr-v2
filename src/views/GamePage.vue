@@ -1,22 +1,21 @@
 <template>
-    <div class="grid grid-cols-3 pt-6 pb-12">
-        <div>
-            <router-link :to="{ name: 'home' }">
-                <div class="flex space-x-2 text-gray-400 hover:text-white">
-                    <div class="flex flex-col justify-center">
-                        <i class="fa-solid fa-circle-chevron-left"></i>
-                    </div>
-                    <span class="text-xl">Go back</span>
+    <div class="flex justify-center w-full text-center">
+        <h1 class="text-6xl font-semibold text-gray-300">{{ gameTitle }}</h1>
+    </div>
+
+    <div class="py-6">
+        <router-link :to="{ name: 'home' }">
+            <div class="flex space-x-2 text-gray-400 hover:text-white">
+                <div class="flex flex-col justify-center">
+                    <i class="fa-solid fa-circle-chevron-left"></i>
                 </div>
-            </router-link>
-        </div>
-        <div class="flex justify-center w-full text-center">
-            <h1 class="text-6xl font-semibold">{{ gameTitle }}</h1>
-        </div>
+                <span class="text-xl">Go back</span>
+            </div>
+        </router-link>
     </div>
 
     <div class="grid grid-cols-5 gap-6 mb-6">
-        <div class="grid grid-cols-3 col-span-3 gap-6 p-6 border-4 border-gray-600 rounded-xl">
+        <div class="grid grid-cols-3 col-span-3 gap-6 p-6 border-4 border-slate-600 rounded-xl">
             <div class="flex flex-col space-y-2">
                 <h3 class="text-xl font-semibold">Library ({{ cardsInLibrary }}):</h3>
                 <library />
@@ -33,26 +32,26 @@
             </div>
         </div>
 
-        <div class="col-span-2 p-6 bg-gray-800 rounded-xl">
+        <div class="col-span-2 p-6 bg-slate-800 rounded-xl">
             <life-counter />
         </div>
     </div>
 
-    <div class="flex flex-col p-6 space-y-6 text-left border-4 border-gray-600 rounded-xl">
+    <div class="flex flex-col p-6 space-y-6 text-left border-4 border-slate-600 rounded-xl">
         <h3 class="text-xl font-semibold">Battlefield</h3>
 
-        <div class="flex flex-col space-y-4" v-if="artifacts.length > 0 || enchantments.length > 0">
+        <div class="flex flex-col space-y-4" v-if="artifacts.length > 0">
             <h4 class="text-lg font-semibold">Artifacts/Enchantments</h4>
             <div class="grid grid-cols-5 gap-6">
-                <v-card v-for="card in artifacts" :key="card.id" :card="card" />
-                <v-card v-for="card in enchantments" :key="card.id" :card="card" />
+                <card v-for="card in artifacts" :key="card.id" :card="card" />
+                <card v-for="card in enchantments" :key="card.id" :card="card" />
             </div>
         </div>
 
         <div class="flex flex-col space-y-4" v-if="creatures.length">
             <h4 class="text-lg font-semibold">Creatures</h4>
             <div class="grid grid-cols-5 gap-6">
-                <v-card v-for="card in creatures" :key="card.id" :card="card" />
+                <card v-for="card in creatures" :key="card.id" :card="card" />
             </div>
         </div>
     </div>
@@ -90,7 +89,7 @@ const cardsInLibrary = computed(() => store.getters['challengeDeck/cardsInLibrar
 const cardsInGraveyard = computed(() => store.getters['challengeDeck/cardsInGraveyard']);
 const cardsInExile = computed(() => store.getters['challengeDeck/cardsInExile']);
 const artifacts = computed(() => store.getters['challengeDeck/boardArtifacts']);
-const enchantments = computed(() => store.getters['challengeDeck/boardEnchantments']);
+// const enchantments = computed(() => store.getters['challengeDeck/boardEnchantments']);
 const creatures = computed(() => store.getters['challengeDeck/boardCreatures']);
 
 // watchers

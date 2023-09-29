@@ -4,7 +4,7 @@
             <div v-show="hovering"
                 class="absolute top-0 left-0 z-50 flex flex-col justify-center w-full h-full bg-black rounded-lg cursor-pointer opacity-80">
                 <div class="flex flex-col justify-center text-center">
-                    <span class="p-2 text-lg text-gray-300 cursor-pointer hover:text-white hover:bg-gray-800">
+                    <span class="p-2 text-lg text-gray-300 cursor-pointer hover:text-white hover:bg-slate-800">
                         Mill X Cards
                     </span>
                 </div>
