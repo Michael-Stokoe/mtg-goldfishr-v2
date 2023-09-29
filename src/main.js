@@ -3,7 +3,9 @@ import './style.css';
 import App from './App.vue';
 import router from './router';
 import store from './store';
-import emitter from './plugins/tiny-emitter';
+import emitter from './plugins/mitt.js';
+
+window.$evt = emitter;
 
 const app = createApp(App);
 app.use(router).use(store);

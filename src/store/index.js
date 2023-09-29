@@ -11,6 +11,8 @@ const store = createStore({
         title: '',
 
         initialised: false,
+        gameStarted: false,
+        deckType: null,
     }),
 
     getters: {
@@ -18,6 +20,8 @@ const store = createStore({
         currentPhase: state => state.currentPhase,
         title: state => state.title,
         initialised: state => state.initialised,
+        started: state => state.gameStarted,
+        deckTypeChosen: state => !!state.deckType,
     },
 
     actions: {
@@ -25,6 +29,12 @@ const store = createStore({
             opponent = opponent.toLowerCase();
 
             commit('setupGame', getTitle(opponent));
+        },
+        startGame({ commit, dispatch }) {
+            commit('startGame');
+        },
+        playingCommander({ commit }, playingCommander) {
+            commit('playingCommander', playingCommander);
         },
         nextTurn({ commit }) {
             commit('incrementTurn');
@@ -39,6 +49,12 @@ const store = createStore({
             state.title = title;
 
             state.initialised = true;
+        },
+        startGame(state) {
+            state.gameStarted = true;
+        },
+        playingCommander(state, playingCommander) {
+            state.deckType = playingCommander ? 'commander' : 'normal';
         },
         incrementTurn(state) {
             state.currentTurn++;

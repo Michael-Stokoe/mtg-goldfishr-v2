@@ -10,7 +10,13 @@ export default {
   plugins: [],
   safelist: [
     {
-      pattern: /bg-(indigo|green|red|blue|black|white|gray|slate)-(100|200|300|400|500|600|700|800|900)/
+      pattern: /bg-(green|red|blue|black|white|neutral)-(100|200|300|400|500|600|700|800|900)/
+    },
+    {
+      pattern: /outline-(green|red|blue|black|white|neutral)-(100|200|300|400|500|600|700|800|900)/
+    },
+    {
+      pattern: /focus-visible:outline-(green|red|blue|black|white|neutral)-(100|200|300|400|500|600|700|800|900)/
     }
   ],
 }

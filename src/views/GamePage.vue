@@ -25,6 +25,30 @@
     </div>
 
     <div class="flex flex-col p-6 space-y-6 text-left border-4 border-neutral-600 rounded-xl">
+        <div class="flex justify-center py-4 text-center">
+            <!-- ALL ACTIONS IN HERE... -->
+            <!-- START GAME -->
+            <div v-if="!gameStarted" class="flex flex-col space-y-2">
+                <p>Click below to get started, we'll ask a few questions before we begin.</p>
+                <div class="flex justify-center space-x-2">
+                    <btn :label="'Start Game'" @click="startGame" />
+                </div>
+            </div>
+
+            <div v-if="gameStarted && !deckTypeChosen">
+                <p>First, are you playing with a Commander/EDH deck?</p>
+                <div class="flex justify-center space-x-2">
+                    <btn :label="'Yes'" :colour="'green'" @click="playingCommander(true)" />
+                    <btn :label="'no'" :colour="'red'" @click="playingCommander(false)" />
+                </div>
+            </div>
+            <!-- START COMBAT -->
+            <!-- BLOCKERS DECLARED -->
+            <!-- END COMBAT & CONTINUE -->
+            <!-- START PLAYER TURN -->
+            <!-- END PLAYER TURN -->
+        </div>
+
         <h3 class="text-xl font-semibold">Battlefield</h3>
 
         <battle-field />
@@ -48,17 +72,31 @@ onMounted(() => {
 import LifeCounter from '../components/LifeCounter.vue';
 import CardStacks from '../components/CardStacks.vue';
 import BattleField from '../components/BattleField.vue';
+import Btn from '../components/Btn.vue';
 
 const components = {
     LifeCounter,
     CardStacks,
-    BattleField
+    BattleField,
+    Btn,
 };
 
 // computed props
 const opponent = computed(() => route.params.opponent);
 const gameInitialised = computed(() => store.getters['initialised']);
 const gameTitle = computed(() => store.getters['title']);
+const gameStarted = computed(() => store.getters['started']);
+const deckTypeChosen = computed(() => store.getters['deckTypeChosen']);
+
+// methods
+const startGame = () => {
+    store.dispatch('startGame');
+}
+
+const playingCommander = (commander) => {
+    store.dispatch('playingCommander', commander);
+    $evt.emit('set-life', commander ? 40 : 20);
+}
 
 // watchers
 watch(gameInitialised, (newValue, oldValue) => {

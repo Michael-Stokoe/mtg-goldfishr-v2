@@ -57,4 +57,7 @@ const changeLife = (amount) => {
     store.dispatch('lifeCounter/changeLife', amount);
 };
 
+onMounted(() => {
+    $evt.on('set-life', life => store.dispatch('lifeCounter/setStartingLife', life));
+});
 </script>
