@@ -14,8 +14,11 @@ const challengeDeck = {
 
     getters: {
         library: (state) => state.library,
+        cardsInLibrary: (state) => state.library.length,
         graveyard: (state) => state.graveyard,
+        cardsInGraveyard: (state) => state.graveyard.length,
         exile: (state) => state.exile,
+        cardsInExile: (state) => state.exile.length,
         boardState: (state) => state.boardState,
         boardArtifacts: (state) => state.boardState.filter(card => card.type.includes('Artifact')),
         boardCreatures: (state) => state.boardState.filter(card => card.type.includes('Creature')),
@@ -44,22 +47,6 @@ const challengeDeck = {
             decklist.forEach(cardData => {
                 for (let i = 0; i < cardData.amount; i++) {
                     const newCard = new Card(cardData);
-
-                    // let existingPhaseHandlers = Object.keys(cardData.phaseHandlers);
-
-                    // if (existingPhaseHandlers.length > 0) {
-                    //     existingPhaseHandlers.forEach(phase => {
-                    //         newCard.registerPhaseHandlers(phase, cardData.phaseHandlers[phase]);
-                    //     });
-                    // }
-
-                    // let existingStateHandlers = Object.keys(cardData.stateHandlers);
-
-                    // if (existingStateHandlers.length > 0) {
-                    //     existingStateHandlers.forEach(state => {
-                    //         newCard.registerStateHandlers(state, cardData.stateHandlers[state]);
-                    //     });
-                    // }
 
                     library.push(newCard);
                 }

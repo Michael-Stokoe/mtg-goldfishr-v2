@@ -7,15 +7,27 @@ const lifeCounter = {
     }),
 
     getters: {
-        currentLife: () => state.currentLifeTotal,
+        currentLife: (state) => state.currentLifeTotal,
+        startingLife: (state) => state.startingLifeTotal,
     },
 
     actions: {
-        // ...
+        setStartingLife({ commit }, startingLife) {
+            commit('setStartingLife', startingLife);
+        },
+        changeLife({ commit }, amount) {
+            commit('changeLife', amount);
+        },
     },
 
     mutations: {
-        // ...
+        setStartingLife(state, startingLife) {
+            state.startingLifeTotal = startingLife;
+            state.currentLifeTotal = startingLife;
+        },
+        changeLife(state, amount) {
+            state.currentLifeTotal += amount;
+        },
     },
 }
 

@@ -58,29 +58,8 @@ export default class Card {
         this.toughness = card.toughness;
 
         this.ranking = card.ranking;
-    }
 
-    registerPhaseHandler(phase, handler) {
-        if (this.phaseHandlers[phase]) {
-            this.phaseHandlers[phase].push(handler);
-        }
-    }
-
-    registerStateHandler(state, handler) {
-        if (this.stateHandlers[state]) {
-            this.stateHandlers[state].push(handler);
-        }
-    }
-
-    registerPhaseHandlers(phase, handlers) {
-        if (this.phaseHandlers[phase]) {
-            this.phaseHandlers[phase].concat(handlers);
-        }
-    }
-
-    registerStateHandlers(state, handlers) {
-        if (this.stateHandlers[state]) {
-            this.stateHandlers[state].concat(handlers);
-        }
+        this.stateHandlers = card.stateHandlers;
+        this.phaseHandlers = card.phaseHandlers;
     }
 }
