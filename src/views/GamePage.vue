@@ -15,7 +15,7 @@
     </div>
 
     <div class="grid grid-cols-5 gap-6 mb-6">
-        <div class="grid grid-cols-3 col-span-3 gap-6 p-6 border-4 border-stone-600 rounded-xl">
+        <div class="grid grid-cols-3 col-span-3 gap-6 p-6 border-4 border-neutral-600 rounded-xl">
             <div class="flex flex-col space-y-2">
                 <h3 class="text-xl font-semibold">Library ({{ cardsInLibrary }}):</h3>
                 <library />
@@ -32,12 +32,12 @@
             </div>
         </div>
 
-        <div class="col-span-2 p-6 bg-stone-800 rounded-xl">
+        <div class="col-span-2 p-6 bg-neutral-800 rounded-xl">
             <life-counter />
         </div>
     </div>
 
-    <div class="flex flex-col p-6 space-y-6 text-left border-4 border-stone-600 rounded-xl">
+    <div class="flex flex-col p-6 space-y-6 text-left border-4 border-neutral-600 rounded-xl">
         <h3 class="text-xl font-semibold">Battlefield</h3>
 
         <div class="flex flex-col space-y-4" v-if="artifacts.length > 0">
