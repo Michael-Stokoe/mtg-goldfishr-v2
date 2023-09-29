@@ -1,11 +1,11 @@
 <template>
     <div class="flex justify-center w-full text-center">
-        <h1 class="text-6xl font-semibold text-gray-300">{{ gameTitle }}</h1>
+        <h1 class="text-6xl font-semibold text-neutral-300">{{ gameTitle }}</h1>
     </div>
 
     <div class="py-6">
         <router-link :to="{ name: 'home' }">
-            <div class="flex space-x-2 text-gray-400 hover:text-white">
+            <div class="flex space-x-2 text-neutral-400 hover:text-white">
                 <div class="flex flex-col justify-center">
                     <i class="fa-solid fa-circle-chevron-left"></i>
                 </div>
