@@ -14,9 +14,48 @@
             <h1 class="text-6xl font-semibold">{{ gameTitle }}</h1>
         </div>
     </div>
+
+    <div>
+        <library />
+    </div>
 </template>
 
-<script>
+<script setup>
+import { ref, computed, watch, onMounted } from "vue";
+import { useStore } from 'vuex';
+import { useRouter, useRoute } from 'vue-router';
+
+// components
+import Library from '../components/Library.vue';
+
+const components = {
+    Library,
+};
+
+const store = useStore();
+const router = useRouter();
+const route = useRoute();
+
+const opponent = computed(() => route.params.opponent);
+
+const gameInitialised = computed(() => store.getters['initialised']);
+
+const gameTitle = computed(() => store.getters['title']);
+
+watch(gameInitialised, (newValue, oldValue) => {
+    if (newValue && (newValue !== oldValue)) {
+        store.dispatch('challengeDeck/loadDeck', opponent.value);
+    }
+}, { immediate: true });
+
+onMounted(() => {
+    store.dispatch('setupGame', opponent.value);
+});
+</script>
+
+
+
+<!-- <script>
 export default {
     name: 'GamePage',
 
@@ -57,13 +96,5 @@ export default {
     methods: {
 
     },
-
-    watch: {
-        initialised(newVal, oldVal) {
-            if (val && (newVal !== oldVal)) {
-                this.store.dispatch('challengeDeck/loadDeck', this.opponent);
-            }
-        }
-    }
 }
-</script>
+</script> -->

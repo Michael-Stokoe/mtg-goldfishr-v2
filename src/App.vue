@@ -4,8 +4,6 @@
   </main>
 </template>
 
-<script>
-export default {
-  mounted() { }
-}
+<script setup>
+import { ref, computed, watch, onMounted } from "vue";
 </script>

@@ -1,7 +1,7 @@
-const cards = {
+const cards = [
     // Creatures
 
-    minotaurGoreseeker: {
+    {
         name: 'Minotaur Goreseeker',
         image: '/img/decks/minotaurs/tbth-1-minotaur-goreseeker.jpg',
 
@@ -18,7 +18,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    minotaurYounghorn: {
+    {
         name: 'Minotaur Younghorn',
         image: '/img/decks/minotaurs/tbth-2-minotaur-younghorn.jpg',
 
@@ -35,7 +35,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    mogisChosen: {
+    {
         name: 'Mogis\'s Chosen',
         image: '/img/decks/minotaurs/tbth-3-mogis-s-chosen.jpg',
 
@@ -59,7 +59,7 @@ const cards = {
         },
     },
 
-    phoberosReaver: {
+    {
         name: 'Phoberos Reaver',
         image: '/img/decks/minotaurs/tbth-4-phoberos-reaver.jpg',
 
@@ -76,7 +76,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    recklessMinotaur: {
+    {
         name: 'Reckless Minotaur',
         image: '/img/decks/minotaurs/tbth-5-reckless-minotaur.jpg',
 
@@ -101,7 +101,7 @@ const cards = {
 
     // Sorceries
 
-    consumingRage: {
+    {
         name: 'Consuming Rage',
         image: '/img/decks/minotaurs/tbth-6-consuming-rage.jpg',
 
@@ -118,7 +118,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    descendOnThePrey: {
+    {
         name: 'Descend on the Prey',
         image: '/img/decks/minotaurs/tbth-7-descend-on-the-prey.jpg',
 
@@ -135,7 +135,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    interventionOfKeranos: {
+    {
         name: 'Intervention of Keranos',
         image: '/img/decks/minotaurs/tbth-8-intervention-of-keranos.jpg',
 
@@ -152,7 +152,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    touchOfTheHornedGod: {
+    {
         name: 'Touch of the Horned God',
         image: '/img/decks/minotaurs/tbth-9-touch-of-the-horned-god.jpg',
 
@@ -169,7 +169,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    unquenchableFury: {
+    {
         name: 'Unquenchable Fury',
         image: '/img/decks/minotaurs/tbth-10-unquenchable-fury.jpg',
 
@@ -188,7 +188,7 @@ const cards = {
 
     // Artifacts
 
-    altarOfMogis: {
+    {
         name: 'Altar of Mogis',
         image: '/img/decks/minotaurs/tbth-11-altar-of-mogis.jpg',
 
@@ -211,7 +211,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    massacreTotem: {
+    {
         name: 'Massacre Totem',
         image: '/img/decks/minotaurs/tbth-12-massacre-totem.jpg',
 
@@ -234,7 +234,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    plunderedStatue: {
+    {
         name: 'Plundered Statue',
         image: '/img/decks/minotaurs/tbth-13-plundered-statue.jpg',
 
@@ -257,7 +257,7 @@ const cards = {
         stateHandlers: {},
     },
 
-    refreshingElixir: {
+    {
         name: 'Refreshing Elixir',
         image: '/img/decks/minotaurs/tbth-14-refreshing-elixir.jpg',
 
@@ -280,13 +280,13 @@ const cards = {
         stateHandlers: {},
     },
 
-    vitalitySalve: {
+    {
         name: 'Vitality Salve',
         image: '/img/decks/minotaurs/tbth-15-vitality-salve.jpg',
 
         superTypes: ['Artifact'],
         subTypes: [],
-        amount: 2,
+        amount: 1,
 
         power: 0,
         toughness: 0,
@@ -302,6 +302,6 @@ const cards = {
         },
         stateHandlers: {},
     },
-}
+];
 
 export default cards;

@@ -39,27 +39,27 @@ const challengeDeck = {
                 throw new Error('Unknown opponent');
             }
 
-            let library = [];
+            var library = [];
 
             decklist.forEach(cardData => {
                 for (let i = 0; i < cardData.amount; i++) {
                     const newCard = new Card(cardData);
 
-                    let existingPhaseHandlers = Object.keys(cardData.phaseHandlers);
+                    // let existingPhaseHandlers = Object.keys(cardData.phaseHandlers);
 
-                    if (existingPhaseHandlers.length > 0) {
-                        existingPhaseHandlers.forEach(phase => {
-                            newCard.registerPhaseHandlers(phase, cardData.phaseHandlers[phase]);
-                        });
-                    }
+                    // if (existingPhaseHandlers.length > 0) {
+                    //     existingPhaseHandlers.forEach(phase => {
+                    //         newCard.registerPhaseHandlers(phase, cardData.phaseHandlers[phase]);
+                    //     });
+                    // }
 
-                    let existingStateHandlers = Object.keys(cardData.stateHandlers);
+                    // let existingStateHandlers = Object.keys(cardData.stateHandlers);
 
-                    if (existingStateHandlers.length > 0) {
-                        existingStateHandlers.forEach(state => {
-                            newCard.registerStateHandlers(state, cardData.stateHandlers[state]);
-                        });
-                    }
+                    // if (existingStateHandlers.length > 0) {
+                    //     existingStateHandlers.forEach(state => {
+                    //         newCard.registerStateHandlers(state, cardData.stateHandlers[state]);
+                    //     });
+                    // }
 
                     library.push(newCard);
                 }
