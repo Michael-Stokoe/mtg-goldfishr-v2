@@ -21,6 +21,7 @@ const challengeDeck = {
         cardsInExile: (state) => state.exile.length,
         boardState: (state) => state.boardState,
         boardArtifacts: (state) => state.boardState.filter(card => card.type.includes('Artifact')),
+        boardArtifacts: (state) => state.boardState.filter(card => card.type.includes('Enchantment')),
         boardCreatures: (state) => state.boardState.filter(card => card.type.includes('Creature')),
     },
 

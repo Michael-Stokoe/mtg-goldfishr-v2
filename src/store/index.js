@@ -32,9 +32,6 @@ const store = createStore({
         nextPhase({ commit }) {
             // ...
         },
-        runHandlersForPhase({ commit }, phase) {
-            // ...
-        },
     },
 
     mutations: {

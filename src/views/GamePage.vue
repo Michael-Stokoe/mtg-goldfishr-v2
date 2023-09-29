@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-5 gap-6">
+    <div class="grid grid-cols-5 gap-6 mb-6">
         <div class="grid grid-cols-3 col-span-3 gap-6 p-6 border-4 border-gray-600 rounded-xl">
             <div class="flex flex-col space-y-2">
                 <h3 class="text-xl font-semibold">Library ({{ cardsInLibrary }}):</h3>
@@ -37,6 +37,25 @@
             <life-counter />
         </div>
     </div>
+
+    <div class="flex flex-col p-6 space-y-6 text-left border-4 border-gray-600 rounded-xl">
+        <h3 class="text-xl font-semibold">Battlefield</h3>
+
+        <div class="flex flex-col space-y-4" v-if="artifacts.length > 0 || enchantments.length > 0">
+            <h4 class="text-lg font-semibold">Artifacts/Enchantments</h4>
+            <div class="grid grid-cols-5 gap-6">
+                <v-card v-for="card in artifacts" :key="card.id" :card="card" />
+                <v-card v-for="card in enchantments" :key="card.id" :card="card" />
+            </div>
+        </div>
+
+        <div class="flex flex-col space-y-4" v-if="creatures.length">
+            <h4 class="text-lg font-semibold">Creatures</h4>
+            <div class="grid grid-cols-5 gap-6">
+                <v-card v-for="card in creatures" :key="card.id" :card="card" />
+            </div>
+        </div>
+    </div>
 </template>
 
 <script setup>
@@ -55,10 +74,12 @@ onMounted(() => {
 // components
 import Library from '../components/Library.vue';
 import LifeCounter from '../components/LifeCounter.vue';
+import Card from '../components/Card.vue';
 
 const components = {
     Library,
     LifeCounter,
+    Card,
 };
 
 // computed props
@@ -68,6 +89,9 @@ const gameTitle = computed(() => store.getters['title']);
 const cardsInLibrary = computed(() => store.getters['challengeDeck/cardsInLibrary']);
 const cardsInGraveyard = computed(() => store.getters['challengeDeck/cardsInGraveyard']);
 const cardsInExile = computed(() => store.getters['challengeDeck/cardsInExile']);
+const artifacts = computed(() => store.getters['challengeDeck/boardArtifacts']);
+const enchantments = computed(() => store.getters['challengeDeck/boardEnchantments']);
+const creatures = computed(() => store.getters['challengeDeck/boardCreatures']);
 
 // watchers
 watch(gameInitialised, (newValue, oldValue) => {
