@@ -74,7 +74,7 @@
         <battle-field />
     </div>
 
-    <div class="absolute bottom-0 left-0 flex flex-col justify-end w-full h-full -z-10">
+    <div class="absolute bottom-0 left-0 flex flex-col justify-end w-full h-full opacity-50 -z-10">
         <div>
             <img :src="'/images/' + opponent + '_silhouette.jpg'" alt="">
         </div>
