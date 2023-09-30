@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col space-y-4" v-if="artifacts.length || enchantments.length">
-        <h4 class="text-lg font-semibold">Artifacts/Enchantments</h4>
+        <h4 class="text-lg font-semibold font-beleren">Artifacts/Enchantments</h4>
         <div class="grid grid-cols-5 gap-6">
             <card v-for="card in artifacts" :key="card.id" :card="card" />
             <card v-for="card in enchantments" :key="card.id" :card="card" />
@@ -8,7 +8,7 @@
     </div>
 
     <div class="flex flex-col space-y-4" v-if="creatures.length">
-        <h4 class="text-lg font-semibold">Creatures</h4>
+        <h4 class="text-lg font-semibold font-beleren">Creatures</h4>
         <div class="grid grid-cols-5 gap-6">
             <card v-for="card in creatures" :key="card.id" :card="card" />
         </div>

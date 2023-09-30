@@ -69,7 +69,7 @@
             <!-- END PLAYER TURN -->
         </div>
 
-        <h3 class="text-xl font-semibold" v-if="currentTurn > 0">Battlefield</h3>
+        <h3 class="text-3xl font-semibold font-beleren" v-if="currentTurn > 0">Battlefield</h3>
 
         <battle-field />
     </div>

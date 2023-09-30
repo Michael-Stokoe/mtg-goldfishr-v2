@@ -1,16 +1,16 @@
 <template>
     <div class="flex flex-col space-y-2">
-        <h3 class="text-xl font-semibold">Library ({{ cardsInLibrary }}):</h3>
+        <h3 class="text-xl font-semibold font-beleren">Library ({{ cardsInLibrary }}):</h3>
         <library />
     </div>
 
     <div class="flex flex-col space-y-2">
-        <h3 class="text-xl font-semibold">Graveyard ({{ cardsInGraveyard }}):</h3>
+        <h3 class="text-xl font-semibold font-beleren">Graveyard ({{ cardsInGraveyard }}):</h3>
         <img src="/images/emptyzone.png" class="flex w-48" alt="Empty Graveyard">
     </div>
 
     <div class="flex flex-col space-y-2">
-        <h3 class="text-xl font-semibold">Exile ({{ cardsInExile }}):</h3>
+        <h3 class="text-xl font-semibold font-beleren">Exile ({{ cardsInExile }}):</h3>
         <img src="/images/emptyzone.png" class="flex w-48" alt="Empty Exile">
     </div>
 </template>
