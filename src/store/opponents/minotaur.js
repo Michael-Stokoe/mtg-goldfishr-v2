@@ -3,7 +3,7 @@ const cards = [
 
     {
         name: 'Minotaur Goreseeker',
-        image: '/img/decks/minotaurs/tbth-1-minotaur-goreseeker.jpg',
+        image: '/images/decks/minotaurs/tbth-1-minotaur-goreseeker.jpg',
 
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
@@ -20,7 +20,7 @@ const cards = [
 
     {
         name: 'Minotaur Younghorn',
-        image: '/img/decks/minotaurs/tbth-2-minotaur-younghorn.jpg',
+        image: '/images/decks/minotaurs/tbth-2-minotaur-younghorn.jpg',
 
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
@@ -37,7 +37,7 @@ const cards = [
 
     {
         name: 'Mogis\'s Chosen',
-        image: '/img/decks/minotaurs/tbth-3-mogis-s-chosen.jpg',
+        image: '/images/decks/minotaurs/tbth-3-mogis-s-chosen.jpg',
 
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
@@ -61,7 +61,7 @@ const cards = [
 
     {
         name: 'Phoberos Reaver',
-        image: '/img/decks/minotaurs/tbth-4-phoberos-reaver.jpg',
+        image: '/images/decks/minotaurs/tbth-4-phoberos-reaver.jpg',
 
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
@@ -78,7 +78,7 @@ const cards = [
 
     {
         name: 'Reckless Minotaur',
-        image: '/img/decks/minotaurs/tbth-5-reckless-minotaur.jpg',
+        image: '/images/decks/minotaurs/tbth-5-reckless-minotaur.jpg',
 
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
@@ -103,7 +103,7 @@ const cards = [
 
     {
         name: 'Consuming Rage',
-        image: '/img/decks/minotaurs/tbth-6-consuming-rage.jpg',
+        image: '/images/decks/minotaurs/tbth-6-consuming-rage.jpg',
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -120,7 +120,7 @@ const cards = [
 
     {
         name: 'Descend on the Prey',
-        image: '/img/decks/minotaurs/tbth-7-descend-on-the-prey.jpg',
+        image: '/images/decks/minotaurs/tbth-7-descend-on-the-prey.jpg',
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -137,7 +137,7 @@ const cards = [
 
     {
         name: 'Intervention of Keranos',
-        image: '/img/decks/minotaurs/tbth-8-intervention-of-keranos.jpg',
+        image: '/images/decks/minotaurs/tbth-8-intervention-of-keranos.jpg',
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -154,7 +154,7 @@ const cards = [
 
     {
         name: 'Touch of the Horned God',
-        image: '/img/decks/minotaurs/tbth-9-touch-of-the-horned-god.jpg',
+        image: '/images/decks/minotaurs/tbth-9-touch-of-the-horned-god.jpg',
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -171,7 +171,7 @@ const cards = [
 
     {
         name: 'Unquenchable Fury',
-        image: '/img/decks/minotaurs/tbth-10-unquenchable-fury.jpg',
+        image: '/images/decks/minotaurs/tbth-10-unquenchable-fury.jpg',
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -190,7 +190,7 @@ const cards = [
 
     {
         name: 'Altar of Mogis',
-        image: '/img/decks/minotaurs/tbth-11-altar-of-mogis.jpg',
+        image: '/images/decks/minotaurs/tbth-11-altar-of-mogis.jpg',
 
         superTypes: ['Artifact'],
         subTypes: [],
@@ -213,7 +213,7 @@ const cards = [
 
     {
         name: 'Massacre Totem',
-        image: '/img/decks/minotaurs/tbth-12-massacre-totem.jpg',
+        image: '/images/decks/minotaurs/tbth-12-massacre-totem.jpg',
 
         superTypes: ['Artifact'],
         subTypes: [],
@@ -236,7 +236,7 @@ const cards = [
 
     {
         name: 'Plundered Statue',
-        image: '/img/decks/minotaurs/tbth-13-plundered-statue.jpg',
+        image: '/images/decks/minotaurs/tbth-13-plundered-statue.jpg',
 
         superTypes: ['Artifact'],
         subTypes: [],
@@ -259,7 +259,7 @@ const cards = [
 
     {
         name: 'Refreshing Elixir',
-        image: '/img/decks/minotaurs/tbth-14-refreshing-elixir.jpg',
+        image: '/images/decks/minotaurs/tbth-14-refreshing-elixir.jpg',
 
         superTypes: ['Artifact'],
         subTypes: [],
@@ -282,7 +282,7 @@ const cards = [
 
     {
         name: 'Vitality Salve',
-        image: '/img/decks/minotaurs/tbth-15-vitality-salve.jpg',
+        image: '/images/decks/minotaurs/tbth-15-vitality-salve.jpg',
 
         superTypes: ['Artifact'],
         subTypes: [],
