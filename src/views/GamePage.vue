@@ -15,7 +15,7 @@
     </div>
 
     <div class="grid grid-cols-5 gap-6 mb-6">
-        <div class="grid grid-cols-3 col-span-3 gap-6 p-6 border-4 border-neutral-600 rounded-xl">
+        <div class="grid grid-cols-3 col-span-3 gap-6 p-6 bg-black border-4 border-neutral-600 rounded-xl bg-opacity-70">
             <card-stacks />
         </div>
 
@@ -24,7 +24,7 @@
         </div>
     </div>
 
-    <div class="flex flex-col p-6 space-y-6 text-left border-4 border-neutral-600 rounded-xl">
+    <div class="flex flex-col p-6 space-y-6 text-left bg-black border-4 border-neutral-600 rounded-xl bg-opacity-70">
         <div class="flex justify-center py-4 text-center">
             <!-- ALL ACTIONS IN HERE... -->
             <!-- START GAME -->
@@ -69,7 +69,7 @@
             <!-- END PLAYER TURN -->
         </div>
 
-        <h3 class="text-xl font-semibold">Battlefield</h3>
+        <h3 class="text-xl font-semibold" v-if="currentTurn > 0">Battlefield</h3>
 
         <battle-field />
     </div>
@@ -117,6 +117,7 @@ const playingCommanderDeck = computed(() => store.getters['playingCommanderDeck'
 const playerIsFirst = computed(() => store.getters['playerFirst']);
 const playerFirstChosen = computed(() => store.getters['playerFirstChosen']);
 const readyToStart = computed(() => store.getters['readyToStart']);
+const currentTurn = computed(() => store.getters['currentTurn']);
 
 // methods
 const startGame = () => {

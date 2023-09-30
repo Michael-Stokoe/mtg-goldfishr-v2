@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col space-y-4" v-if="showArtifactsAndEnchantments">
+    <div class="flex flex-col space-y-4" v-if="artifacts.length || enchantments.length">
         <h4 class="text-lg font-semibold">Artifacts/Enchantments</h4>
         <div class="grid grid-cols-5 gap-6">
             <card v-for="card in artifacts" :key="card.id" :card="card" />
@@ -24,7 +24,7 @@ const store = useStore();
 const router = useRouter();
 const route = useRoute();
 
-import Card from '../components/Card.vue';
+import Card from './Card.vue';
 const components = {
     Card,
 }
@@ -32,6 +32,4 @@ const components = {
 const artifacts = computed(() => store.getters['challengeDeck/boardArtifacts']);
 const enchantments = computed(() => store.getters['challengeDeck/boardEnchantments']);
 const creatures = computed(() => store.getters['challengeDeck/boardCreatures']);
-
-const showArtifactsAndEnchantments = computed(() => artifacts.length > 0 || enchantments.length > 0);
 </script>

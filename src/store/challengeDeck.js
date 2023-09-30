@@ -10,6 +10,7 @@ const challengeDeck = {
         graveyard: [],
         exile: [],
         boardState: [],
+        nonPermanentsPlayed: [],
     }),
 
     getters: {
@@ -19,15 +20,74 @@ const challengeDeck = {
         cardsInGraveyard: (state) => state.graveyard.length,
         exile: (state) => state.exile,
         cardsInExile: (state) => state.exile.length,
+        nonPermanentsPlayed: (state) => state.nonPermanentsPlayed,
         boardState: (state) => state.boardState,
-        boardArtifacts: (state) => state.boardState.filter(card => card.type.includes('Artifact')),
-        boardArtifacts: (state) => state.boardState.filter(card => card.type.includes('Enchantment')),
-        boardCreatures: (state) => state.boardState.filter(card => card.type.includes('Creature')),
+        boardArtifacts: (state) => state.boardState.filter(card => card.superTypes.includes('Artifact')),
+        boardEnchantments: (state) => state.boardState.filter(card => card.superTypes.includes('Enchantment')),
+        boardCreatures: (state) => state.boardState.filter(card => card.superTypes.includes('Creature')),
     },
 
     actions: {
         loadDeck({ commit }, opponent) {
-            commit('loadDeck', opponent)
+            commit('loadDeck', opponent);
+            commit('shuffleDeck');
+        },
+        startTurn({ dispatch }) {
+            dispatch('handleUntap');
+        },
+        handleUntap({ dispatch, commit }) {
+            commit('untapAll');
+            dispatch('handleUpkeep');
+        },
+        handleUpkeep({ dispatch }) {
+            dispatch('handleDraw');
+        },
+        handleDraw({ dispatch }) {
+            dispatch('handleMainPhase');
+        },
+        handleMainPhase({ dispatch, commit, state }) {
+            // Cast the first 2 cards from library
+            if (state.library.length > 2) {
+                dispatch('stack/addCard', state.library[0], { root: true });
+                dispatch('stack/addCard', state.library[1], { root: true });
+
+                commit('removeCardsFromLibrary', 2);
+            } else if (state.library.length > 0) {
+                dispatch('stack/addCard', state.library[0], { root: true });
+
+                commit('removeCardsFromLibrary', 1);
+            }
+        },
+        handleCombat({ dispatch }) {
+            // ...
+        },
+        handleSecondMain({ dispatch }) {
+            // ...
+        },
+        handleEndStep({ dispatch }) {
+            // ...
+        },
+
+        tapCard({ commit }, card) {
+            commit('tapCard', card);
+        },
+        untapCard({ commit }, card) {
+            commit('untapCard', card);
+        },
+        removeCardFromCombat({ commit }, amount) {
+            commit('removeCardFromCombat', amount);
+        },
+        toggleBlock({ commit }, card) {
+            commit('toggleBlock', card);
+        },
+        toggleLethalBlock({ commit }, card) {
+            commit('toggleLethalBlock', card);
+        },
+        destroyCard({ commit }, card) {
+            commit('destroyCard', card);
+        },
+        exileCard({ commit }, card) {
+            commit('exileCard', card);
         },
     },
 
@@ -54,7 +114,114 @@ const challengeDeck = {
             });
 
             state.library = library;
-        }
+        },
+        shuffleDeck(state) {
+            let shuffledCards = Object.assign(state.library, []);
+
+            for (var i = shuffledCards.length - 1; i > 0; --i) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = shuffledCards[i];
+                shuffledCards[i] = shuffledCards[j];
+                shuffledCards[j] = temp;
+            }
+
+            state.library = shuffledCards;
+        },
+        untapAll(state) {
+            state.boardState.forEach(card => {
+                card.tapped = false;
+            });
+        },
+        removeCardsFromLibrary(state, amount) {
+            state.library.splice(0, amount);
+        },
+        tapCard(state, card) {
+            const index = state.boardState.indexOf(card);
+
+            if (index === -1) {
+                throw new Error('Card not found in library');
+                return;
+            }
+
+            const boardState = Object.assign([], state.boardState);
+            boardState[index].tapped = true;
+            state.boardState = boardState;
+        },
+        untapCard(state, card) {
+            const index = state.boardState.indexOf(card);
+
+            if (index === -1) {
+                throw new Error('Card not found in library');
+                return;
+            }
+
+            const boardState = Object.assign([], state.boardState);
+            boardState[index].tapped = false;
+            state.boardState = boardState;
+        },
+        removeCardFromCombat(state, card) {
+            const index = state.boardState.indexOf(card);
+
+            if (index === -1) {
+                throw new Error('Card not found in library');
+                return;
+            }
+
+            const boardState = Object.assign([], state.boardState);
+            boardState[index].tapped = false;
+            state.boardState = boardState;
+            state.library[index].isAttacking = false;
+        },
+        toggleBlock(state, card) {
+            const index = state.boardState.indexOf(card);
+
+            if (index === -1) {
+                throw new Error('Card not found in library');
+                return;
+            }
+
+            const boardState = Object.assign([], state.boardState);
+            boardState[index].isBlocked = !state.library[index].isBlocked;
+            state.boardState = boardState;
+        },
+        toggleLethalBlock(state, card) {
+            const index = state.boardState.indexOf(card);
+
+            if (index === -1) {
+                throw new Error('Card not found in library');
+                return;
+            }
+
+            const boardState = Object.assign([], state.boardState);
+            boardState[index].isBlockedAndDying = !state.library[index].isBlockedAndDying;
+            state.boardState = boardState;
+        },
+        destroyCard(state, card) {
+            const index = state.boardState.indexOf(card);
+
+            if (index === -1) {
+                throw new Error('Card not found in library');
+                return;
+            }
+
+            state.graveyard.push(card);
+            const boardState = Object.assign([], state.boardState);
+            boardState.splice(index, 1);
+            state.boardState = boardState;
+        },
+        exileCard(state, card) {
+            const index = state.boardState.indexOf(card);
+
+            if (index === -1) {
+                throw new Error('Card not found in library');
+                return;
+            }
+
+            state.exile.push(card);
+            const boardState = Object.assign([], state.boardState);
+            boardState.splice(index, 1);
+            state.boardState = boardState;
+        },
     },
 }
 

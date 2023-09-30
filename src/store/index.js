@@ -35,7 +35,7 @@ const store = createStore({
 
             commit('setupGame', getTitle(opponent));
         },
-        startGame({ commit, dispatch }) {
+        startGame({ commit }) {
             commit('startGame');
         },
         playingCommander({ commit }, playingCommander) {
@@ -44,8 +44,9 @@ const store = createStore({
         playerFirst({ commit }, playerFirst) {
             commit('playerFirst', playerFirst);
         },
-        startFirstTurn({ commit }) {
+        startFirstTurn({ commit, dispatch }) {
             commit('startFirstTurn');
+            dispatch('challengeDeck/startTurn');
         },
         nextTurn({ commit }) {
             commit('incrementTurn');
