@@ -35,11 +35,31 @@
                 </div>
             </div>
 
-            <div v-if="gameStarted && !deckTypeChosen">
+            <div v-if="gameStarted && !deckTypeChosen" class="flex flex-col space-y-2">
                 <p>First, are you playing with a Commander/EDH deck?</p>
                 <div class="flex justify-center space-x-2">
                     <btn :label="'Yes'" :colour="'green'" @click="playingCommander(true)" />
                     <btn :label="'no'" :colour="'red'" @click="playingCommander(false)" />
+                </div>
+            </div>
+
+            <div v-if="!!playingCommanderDeck && !playerFirstChosen" class="flex flex-col space-y-2">
+                <p>Second, are you going first?</p>
+                <div class="flex justify-center space-x-2">
+                    <btn :label="'Yes'" :colour="'green'" @click="playerFirst(true)" />
+                    <btn :label="'no'" :colour="'red'" @click="playerFirst(false)" />
+                </div>
+            </div>
+
+            <div v-if="readyToStart" class="flex flex-col space-y-2">
+                <div>
+                    <p>Alright, we're ready to start.</p>
+                    <p v-if="playerIsFirst">Take your desired amount of setup turns, then hit the "Start Game" button to
+                        start
+                        the opponent's turn.</p>
+                </div>
+                <div class="flex justify-center space-x-2">
+                    <btn :label="'Start Playing!'" :colour="'green'" @click="startFirstTurn" />
                 </div>
             </div>
             <!-- START COMBAT -->
@@ -52,6 +72,12 @@
         <h3 class="text-xl font-semibold">Battlefield</h3>
 
         <battle-field />
+    </div>
+
+    <div class="absolute bottom-0 left-0 flex flex-col justify-end w-full h-full -z-10">
+        <div>
+            <img :src="'/images/' + opponent + '_silhouette.jpg'" alt="">
+        </div>
     </div>
 </template>
 
@@ -87,6 +113,10 @@ const gameInitialised = computed(() => store.getters['initialised']);
 const gameTitle = computed(() => store.getters['title']);
 const gameStarted = computed(() => store.getters['started']);
 const deckTypeChosen = computed(() => store.getters['deckTypeChosen']);
+const playingCommanderDeck = computed(() => store.getters['playingCommanderDeck']);
+const playerIsFirst = computed(() => store.getters['playerFirst']);
+const playerFirstChosen = computed(() => store.getters['playerFirstChosen']);
+const readyToStart = computed(() => store.getters['readyToStart']);
 
 // methods
 const startGame = () => {
@@ -95,7 +125,15 @@ const startGame = () => {
 
 const playingCommander = (commander) => {
     store.dispatch('playingCommander', commander);
-    $evt.emit('set-life', commander ? 40 : 20);
+    store.dispatch('lifeCounter/setLife', commander ? 40 : 20);
+}
+
+const playerFirst = (first) => {
+    store.dispatch('playerFirst', first);
+}
+
+const startFirstTurn = () => {
+    store.dispatch('startFirstTurn');
 }
 
 // watchers

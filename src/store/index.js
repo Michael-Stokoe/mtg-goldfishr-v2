@@ -13,6 +13,7 @@ const store = createStore({
         initialised: false,
         gameStarted: false,
         deckType: null,
+        playerFirst: null,
     }),
 
     getters: {
@@ -22,6 +23,10 @@ const store = createStore({
         initialised: state => state.initialised,
         started: state => state.gameStarted,
         deckTypeChosen: state => !!state.deckType,
+        playingCommanderDeck: state => state.deckType === 'commander',
+        playerFirst: state => state.playerFirst,
+        playerFirstChosen: state => state.playerFirst !== null,
+        readyToStart: state => state.initialised && state.gameStarted && !!state.deckType && !!state.playerFirst && state.currentTurn === 0,
     },
 
     actions: {
@@ -35,6 +40,12 @@ const store = createStore({
         },
         playingCommander({ commit }, playingCommander) {
             commit('playingCommander', playingCommander);
+        },
+        playerFirst({ commit }, playerFirst) {
+            commit('playerFirst', playerFirst);
+        },
+        startFirstTurn({ commit }) {
+            commit('startFirstTurn');
         },
         nextTurn({ commit }) {
             commit('incrementTurn');
@@ -55,6 +66,12 @@ const store = createStore({
         },
         playingCommander(state, playingCommander) {
             state.deckType = playingCommander ? 'commander' : 'normal';
+        },
+        playerFirst(state, playerFirst) {
+            state.playerFirst = playerFirst;
+        },
+        startFirstTurn(state) {
+            state.currentTurn = 1;
         },
         incrementTurn(state) {
             state.currentTurn++;

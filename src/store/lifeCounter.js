@@ -18,6 +18,9 @@ const lifeCounter = {
         changeLife({ commit }, amount) {
             commit('changeLife', amount);
         },
+        setLife({ commit }, amount) {
+            commit('setLife', amount);
+        },
     },
 
     mutations: {
@@ -27,6 +30,9 @@ const lifeCounter = {
         },
         changeLife(state, amount) {
             state.currentLifeTotal += amount;
+        },
+        setLife(state, amount) {
+            state.currentLifeTotal = amount;
         },
     },
 }
