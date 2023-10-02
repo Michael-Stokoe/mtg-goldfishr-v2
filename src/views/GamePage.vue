@@ -62,7 +62,17 @@
                     <btn :label="'Start Playing!'" :colour="'green'" @click="startFirstTurn" />
                 </div>
             </div>
+
             <!-- START COMBAT -->
+            <div v-if="waitingForCombat" class="flex flex-col space-y-2">
+                <div>
+                    <p>The opponent wants to move to combat.</p>
+                </div>
+
+                <div class="flex justify-center space-x-2">
+                    <btn :label="'Start Combat'" :colour="'red'" @click="startCombat" />
+                </div>
+            </div>
             <!-- BLOCKERS DECLARED -->
             <!-- END COMBAT & CONTINUE -->
             <!-- START PLAYER TURN -->
@@ -92,6 +102,8 @@ const route = useRoute();
 
 onMounted(() => {
     store.dispatch('setupGame', opponent.value);
+
+    $evt.on('destroy-card', card => store.dispatch('challengeDeck/destroyCard', card));
 });
 
 // components
@@ -118,6 +130,7 @@ const playerIsFirst = computed(() => store.getters['playerFirst']);
 const playerFirstChosen = computed(() => store.getters['playerFirstChosen']);
 const readyToStart = computed(() => store.getters['readyToStart']);
 const currentTurn = computed(() => store.getters['currentTurn']);
+const waitingForCombat = computed(() => store.getters['challengeDeck/waitingForCombat']);
 
 // methods
 const startGame = () => {
@@ -135,6 +148,10 @@ const playerFirst = (first) => {
 
 const startFirstTurn = () => {
     store.dispatch('startFirstTurn');
+}
+
+const startCombat = () => {
+    store.dispatch('challengeDeck/startCombat');
 }
 
 // watchers

@@ -11,6 +11,20 @@ const challengeDeck = {
         exile: [],
         boardState: [],
         nonPermanentsPlayed: [],
+
+        waitingForCombat: false,
+
+        handlers: {
+            untap: [],
+            upkeep: [],
+            draw: [],
+            main: [],
+            combatStart: [],
+            combatDamage: [],
+            combatEnd: [],
+            secondMain: [],
+            endStep: [],
+        },
     }),
 
     getters: {
@@ -25,6 +39,7 @@ const challengeDeck = {
         boardArtifacts: (state) => state.boardState.filter(card => card.superTypes.includes('Artifact')),
         boardEnchantments: (state) => state.boardState.filter(card => card.superTypes.includes('Enchantment')),
         boardCreatures: (state) => state.boardState.filter(card => card.superTypes.includes('Creature')),
+        waitingForCombat: (state) => state.waitingForCombat,
     },
 
     actions: {
@@ -32,6 +47,7 @@ const challengeDeck = {
             commit('loadDeck', opponent);
             commit('shuffleDeck');
         },
+
         startTurn({ dispatch }) {
             dispatch('handleUntap');
         },
@@ -46,8 +62,10 @@ const challengeDeck = {
             dispatch('handleMainPhase');
         },
         handleMainPhase({ dispatch, commit, state }) {
+            // TODO: Handle any abilities that trigger at the start of main phase
+
             // Cast the first 2 cards from library
-            if (state.library.length > 2) {
+            if (state.library.length > 1) {
                 dispatch('stack/addCard', state.library[0], { root: true });
                 dispatch('stack/addCard', state.library[1], { root: true });
 
@@ -57,8 +75,20 @@ const challengeDeck = {
 
                 commit('removeCardsFromLibrary', 1);
             }
+
+            commit('waitingForCombat');
         },
-        handleCombat({ dispatch }) {
+        startCombat({ commit, dispatch }) {
+            // TODO: Resolve any abilities that trigger at the start of combat
+            // tap all valid attackers
+
+            commit('startCombat');
+        },
+        handleCombatDamage({ dispatch }) {
+            // kill any creatures that were lethally blocked
+        },
+        handleCombatEnd({ dispatch }) {
+            // TODO: Handle any abilities that trigger at the end of combat
             // ...
         },
         handleSecondMain({ dispatch }) {
@@ -74,6 +104,7 @@ const challengeDeck = {
         untapCard({ commit }, card) {
             commit('untapCard', card);
         },
+
         removeCardFromCombat({ commit }, amount) {
             commit('removeCardFromCombat', amount);
         },
@@ -83,6 +114,7 @@ const challengeDeck = {
         toggleLethalBlock({ commit }, card) {
             commit('toggleLethalBlock', card);
         },
+
         destroyCard({ commit }, card) {
             commit('destroyCard', card);
         },
@@ -139,7 +171,7 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found in library');
+                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -151,7 +183,7 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found in library');
+                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -163,7 +195,7 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found in library');
+                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -176,7 +208,7 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found in library');
+                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -188,7 +220,7 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found in library');
+                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -200,7 +232,7 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found in library');
+                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -213,7 +245,7 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found in library');
+                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -222,6 +254,23 @@ const challengeDeck = {
             boardState.splice(index, 1);
             state.boardState = boardState;
         },
+
+        waitingForCombat(state) {
+            state.waitingForCombat = true;
+        },
+
+        startCombat(state) {
+            state.waitingForCombat = false;
+
+            state.handlers.combatStart.forEach(handler => handler(state));
+
+            state.boardState.forEach(card => {
+                if (card.superTypes.includes('Creature') && card.tapped === false) {
+                    card.isAttacking = true;
+                    card.tapped = true;
+                }
+            });
+        }
     },
 }
 

@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import eventBus from '../plugins/tiny-emitter.js';
+import eventBus from '../plugins/mitt.js';
 import challengeDeck from './challengeDeck.js';
 import lifeCounter from './lifeCounter';
 import stack from './stack';

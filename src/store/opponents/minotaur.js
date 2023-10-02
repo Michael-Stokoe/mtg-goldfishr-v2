@@ -14,6 +14,7 @@ const cards = [
 
         ranking: 1,
 
+        castHandler: function () { },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -31,6 +32,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -48,6 +50,7 @@ const cards = [
 
         ranking: 3,
 
+        castHandler: function () { },
         phaseHandlers: {},
 
         stateHandlers: {
@@ -72,6 +75,7 @@ const cards = [
 
         ranking: 1,
 
+        castHandler: function () { },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -89,6 +93,7 @@ const cards = [
 
         ranking: 2,
 
+        castHandler: function () { },
         phaseHandlers: {
             end: [
                 function (card) {
@@ -114,6 +119,23 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function (state) {
+            state.handlers.combatStart.push((challengeDeck) => {
+                challengeDeck.boardState.forEach(card => {
+                    if (card.superTypes.includes('Creature') && !card.tapped) {
+                        card.power += 2;
+
+                        if (!card.phaseHandlers.combatEnd) {
+                            card.phaseHandlers.combatEnd = [];
+                        }
+
+                        card.phaseHandlers.combatEnd.push(creature => {
+                            creature.destroy();
+                        });
+                    }
+                });
+            });
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -131,6 +153,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -148,6 +171,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -165,6 +189,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -182,6 +207,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -201,6 +227,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {
             main1: [
                 function (card) {
@@ -224,6 +251,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {
             main1: [
                 function (card) {
@@ -247,6 +275,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {
             main1: [
                 function (card) {
@@ -270,6 +299,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {
             main1: [
                 function (card) {
@@ -293,6 +323,7 @@ const cards = [
 
         ranking: 0,
 
+        castHandler: function () { },
         phaseHandlers: {
             main1: [
                 function (card) {

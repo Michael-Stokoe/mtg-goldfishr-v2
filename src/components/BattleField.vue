@@ -1,4 +1,6 @@
 <template>
+    <non-permanents-played />
+
     <div class="flex flex-col space-y-4" v-if="artifacts.length || enchantments.length">
         <h4 class="text-lg font-semibold font-beleren">
             Artifacts ({{ artifacts.length }}) / Enchantments ({{ enchantments.length }})
@@ -27,8 +29,10 @@ const router = useRouter();
 const route = useRoute();
 
 import Card from './Card.vue';
+import NonPermanentsPlayed from "./NonPermanentsPlayed.vue";
 const components = {
     Card,
+    NonPermanentsPlayed,
 }
 
 const artifacts = computed(() => store.getters['challengeDeck/boardArtifacts']);

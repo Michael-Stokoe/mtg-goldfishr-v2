@@ -25,6 +25,8 @@ export default class Card {
 
     counters = [];
 
+    castHandler = function () { };
+
     phaseHandlers = {
         untap: [],
         upkeep: [],
@@ -59,7 +61,13 @@ export default class Card {
 
         this.ranking = card.ranking;
 
+        this.castHandler = card.castHandler;
+
         this.stateHandlers = card.stateHandlers;
         this.phaseHandlers = card.phaseHandlers;
+    }
+
+    destroy() {
+        $evt.emit('destroy-card', this);
     }
 }

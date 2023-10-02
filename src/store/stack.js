@@ -30,6 +30,8 @@ const stack = {
                 rootState.challengeDeck.nonPermanentsPlayed.push(resolvedCard);
             }
 
+            resolvedCard.castHandler(rootState.challengeDeck);
+
             commit('removeCard');
         },
         counterCard({ commit, rootState, state }) {
