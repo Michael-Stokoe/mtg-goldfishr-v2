@@ -25,7 +25,7 @@
     </div>
 
     <div class="flex max-w-5xl mx-auto mt-8">
-        <a href="https://linktr.ee/stokoe0990" class="text-neutral-300 hover:text-white hover:underline">Get your name here by becoming a supporter</a>
+        <a href="https://linktr.ee/stokoe0990" target="_blank" class="text-neutral-300 hover:text-white hover:underline">Get your name here by becoming a supporter</a>
     </div>
 </template>
 
