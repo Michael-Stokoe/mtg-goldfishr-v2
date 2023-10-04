@@ -172,10 +172,13 @@
             <img :src="'/images/' + opponent + '_silhouette.png'" alt="">
         </div>
     </div>
+
+    <graveyard-modal v-if="showGraveyardModal" />
+    <exile-modal v-if="showExileModal" />
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import { useStore } from 'vuex';
 import { useRouter, useRoute } from 'vue-router';
 
@@ -193,10 +196,28 @@ onMounted(() => {
     $evt.on('mill-cards', amount => store.dispatch('challengeDeck/millCards', amount));
 
     $evt.on('cast-spells', amount => store.dispatch('challengeDeck/castSpells', amount));
+
+    $evt.on('show-graveyard-modal', () => showGraveyardModal.value = true);
+    $evt.on('close-graveyard-modal', () => showGraveyardModal.value = false);
+    $evt.on('show-exile-modal', () => showExileModal.value = true);
+    $evt.on('close-exile-modal', () => showExileModal.value = false);
+});
+
+onUnmounted(() => {
+    $evt.off('destroy-card');
+    $evt.off('sacrifice-creatures');
+    $evt.off('mill-cards');
+    $evt.off('cast-spells');
+    $evt.off('show-graveyard-modal');
+    $evt.off('close-graveyard-modal');
+    $evt.off('show-exile-modal');
+    $evt.off('close-exile-modal');
 });
 
 // data
 const disableEndPlayerTurnButton = ref(true);
+const showGraveyardModal = ref(false);
+const showExileModal = ref(false);
 
 // components
 import LifeCounter from '../components/LifeCounter.vue';
@@ -204,11 +225,17 @@ import CardStacks from '../components/CardStacks.vue';
 import BattleField from '../components/BattleField.vue';
 import Btn from '../components/Btn.vue';
 
+// modals
+import GraveyardModal from "../modals/GraveyardModal.vue";
+import ExileModal from "../modals/ExileModal.vue";
+
 const components = {
     LifeCounter,
     CardStacks,
     BattleField,
     Btn,
+    GraveyardModal,
+    ExileModal,
 };
 
 // computed props
