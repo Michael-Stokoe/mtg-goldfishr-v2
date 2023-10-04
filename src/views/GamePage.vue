@@ -31,23 +31,53 @@
             <div v-if="!gameStarted" class="flex flex-col space-y-2">
                 <p>Click below to get started, we'll ask a few questions before we begin.</p>
                 <div class="flex justify-center space-x-2">
-                    <btn :label="'Start Game'" @click="startGame" />
+                    <btn :label="'Start Game'" @click="startGame">
+                        <template v-slot:append>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-play"></i>
+                            </div>
+                        </template>
+                    </btn>
                 </div>
             </div>
 
             <div v-if="gameStarted && !deckTypeChosen" class="flex flex-col space-y-2">
                 <p>First, are you playing with a Commander/EDH deck?</p>
                 <div class="flex justify-center space-x-2">
-                    <btn :label="'Yes'" :colour="'green'" @click="playingCommander(true)" />
-                    <btn :label="'no'" :colour="'red'" @click="playingCommander(false)" />
+                    <btn :label="'Yes'" :colour="'green'" @click="playingCommander(true)">
+                        <template v-slot:append>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-check"></i>
+                            </div>
+                        </template>
+                    </btn>
+                    <btn :label="'no'" :colour="'red'" @click="playingCommander(false)">
+                        <template v-slot:append>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-times"></i>
+                            </div>
+                        </template>
+                    </btn>
                 </div>
             </div>
 
             <div v-if="deckTypeChosen && !playerFirstChosen" class="flex flex-col space-y-2">
                 <p>Second, are you going first?</p>
                 <div class="flex justify-center space-x-2">
-                    <btn :label="'Yes'" :colour="'green'" @click="playerFirst(true)" />
-                    <btn :label="'no'" :colour="'red'" @click="playerFirst(false)" />
+                    <btn :label="'Yes'" :colour="'green'" @click="playerFirst(true)">
+                        <template v-slot:append>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-check"></i>
+                            </div>
+                        </template>
+                    </btn>
+                    <btn :label="'no'" :colour="'red'" @click="playerFirst(false)">
+                        <template v-slot:append>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-times"></i>
+                            </div>
+                        </template>
+                    </btn>
                 </div>
             </div>
 
@@ -57,7 +87,13 @@
                     <p v-if="playerIsFirst">Take your desired amount of setup turns, then hit the "Start Game" button to start the opponent's turn.</p>
                 </div>
                 <div class="flex justify-center space-x-2">
-                    <btn :label="'Start Playing!'" :colour="'green'" @click="startFirstTurn" />
+                    <btn :label="'Start Playing!'" :colour="'green'" @click="startFirstTurn">
+                        <template v-slot:append>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-play"></i>
+                            </div>
+                        </template>
+                    </btn>
                 </div>
             </div>
 
@@ -68,7 +104,13 @@
                 </div>
 
                 <div class="flex justify-center space-x-2">
-                    <btn :label="'Start Combat'" :colour="'red'" @click="startCombat" />
+                    <btn :label="'Start Combat'" :colour="'red'" @click="startCombat">
+                        <template v-slot:append>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-play"></i>
+                            </div>
+                        </template>
+                    </btn>
                 </div>
             </div>
 
@@ -80,7 +122,13 @@
                 </div>
 
                 <div class="flex justify-center space-x-2">
-                    <btn :label="'Blockers Declared'" :colour="'green'" @click="blockersDeclared" />
+                    <btn :label="'Blockers Declared'" :colour="'green'" @click="blockersDeclared">
+                        <template v-slot:append>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-shield"></i>
+                            </div>
+                        </template>
+                    </btn>
                 </div>
             </div>
 
@@ -96,6 +144,11 @@
                         <template v-slot:append v-if="disableEndPlayerTurnButton">
                             <div>
                                 <i class="fa-solid fa-spinner animate-spin"></i>
+                            </div>
+                        </template>
+                        <template v-slot:append v-else>
+                            <div class="flex flex-col justify-center">
+                                <i class="text-xs fa-solid fa-play"></i>
                             </div>
                         </template>
                     </btn>
