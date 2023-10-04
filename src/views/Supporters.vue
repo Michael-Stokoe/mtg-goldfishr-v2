@@ -1,4 +1,8 @@
 <template>
+    <div class="flex justify-center w-full text-center">
+        <h1 class="text-6xl font-semibold text-neutral-300">Supporters</h1>
+    </div>
+
     <div class="max-w-5xl py-6 mx-auto">
         <router-link :to="{ name: 'home' }">
             <div class="flex space-x-2 text-neutral-400 hover:text-white">
