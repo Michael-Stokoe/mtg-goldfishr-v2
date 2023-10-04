@@ -34,6 +34,12 @@ const stack = {
                 resolvedCard.castHandler(rootState.challengeDeck);
             }
 
+            if (resolvedCard.stateHandlers.enterBattlefield) {
+                resolvedCard.stateHandlers.enterBattlefield.forEach((handler) => {
+                    handler(resolvedCard);
+                });
+            }
+
             commit('removeCard');
         },
         counterCard({ commit, rootState, state }) {

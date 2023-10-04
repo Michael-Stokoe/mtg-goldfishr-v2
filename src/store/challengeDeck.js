@@ -310,6 +310,10 @@ const challengeDeck = {
                 return;
             }
 
+            if (card.stateHandlers.death && card.stateHandlers.death.length) {
+                card.stateHandlers.death.forEach(handler => handler(card));
+            }
+
             state.graveyard.push(card);
             const boardState = Object.assign([], state.boardState);
             boardState.splice(index, 1);

@@ -56,7 +56,7 @@ const cards = [
         phaseHandlers: {},
 
         stateHandlers: {
-            enterTheBattleField: [
+            enterBattlefield: [
                 function (card) {
                     card.tapped = true;
                 }
@@ -162,11 +162,11 @@ const cards = [
                     if (card.superTypes.includes('Creature') && !card.tapped) {
                         card.addAbility('First Strike');
 
-                        if (!card.phaseHandlers.end) {
-                            card.phaseHandlers.end = [];
+                        if (!card.phaseHandlers.endStep) {
+                            card.phaseHandlers.endStep = [];
                         }
 
-                        card.phaseHandlers.end.push(creature => {
+                        card.phaseHandlers.endStep.push(creature => {
                             creature.removeAbility('First Strike');
                         });
                     }
@@ -224,11 +224,11 @@ const cards = [
                     if (card.superTypes.includes('Creature') && !card.tapped) {
                         card.addAbility('Deathtouch');
 
-                        if (!card.phaseHandlers.end) {
-                            card.phaseHandlers.end = [];
+                        if (!card.phaseHandlers.endStep) {
+                            card.phaseHandlers.endStep = [];
                         }
 
-                        card.phaseHandlers.end.push(creature => {
+                        card.phaseHandlers.endStep.push(creature => {
                             creature.removeAbility('Deathtouch');
                         });
                     }
@@ -259,11 +259,11 @@ const cards = [
                     if (card.superTypes.includes('Creature') && !card.tapped) {
                         card.addAbility('Menace');
 
-                        if (!card.phaseHandlers.end) {
-                            card.phaseHandlers.end = [];
+                        if (!card.phaseHandlers.endStep) {
+                            card.phaseHandlers.endStep = [];
                         }
 
-                        card.phaseHandlers.end.push(creature => {
+                        card.phaseHandlers.endStep.push(creature => {
                             creature.removeAbility('Menace');
                         });
                     }
