@@ -1,4 +1,15 @@
 <template>
+    <div class="max-w-5xl py-6 mx-auto">
+        <router-link :to="{ name: 'home' }">
+            <div class="flex space-x-2 text-neutral-400 hover:text-white">
+                <div class="flex flex-col justify-center">
+                    <i class="fa-solid fa-circle-chevron-left"></i>
+                </div>
+                <span class="text-xl">Go back</span>
+            </div>
+        </router-link>
+    </div>
+
     <div class="flex justify-center text-center">
         <div class="flex flex-col w-full max-w-5xl space-y-6">
             <div v-for="supporter in supporters" class="flex flex-col w-full p-6 space-y-3 text-left bg-black border-2 bg-opacity-80 border-neutral-300 rounded-xl">
