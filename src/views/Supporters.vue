@@ -1,0 +1,26 @@
+<template>
+    <div class="flex justify-center text-center">
+        <div class="flex flex-col w-full max-w-5xl space-y-6">
+            <div v-for="supporter in supporters" class="flex flex-col w-full p-6 space-y-3 text-left bg-black border-2 bg-opacity-80 border-neutral-300 rounded-xl">
+                <h2 class="text-3xl font-semibold text-white">{{ supporter.name }}</h2>
+                <p v-html="supporter.description" class="text-gray-500"></p>
+                <p>Check him out here: <a :href="supporter.url" target="_blank" class="text-xl text-gray-300 hover:underline hover:text-white"><i class="ml-2 text-base fa-solid fa-link"></i> Socials</a></p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup>
+import { ref } from "vue";
+
+const supporters = [
+    {
+        name: "DMP Alters",
+        url: "https://linktr.ee/dmpalters",
+        description: `DMP helped me out with numerous aspects of Goldfishr,
+            and has been a great supporter of the project since the beginning.
+            He's a great artist, and you should definitely check out his work!
+            He's also a great streamer, and you can find him on his Twitch in the link below.`,
+    }
+];
+</script>

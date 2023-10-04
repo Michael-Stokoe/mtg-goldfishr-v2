@@ -22,6 +22,7 @@
     <div class="flex justify-center space-x-4">
       <a class="hover:underline hover:text-gray-300" href="https://github.com/Michael-Stokoe/mtg-goldfishr-v2" target="_blank">GitHub Repo</a>
       <a class="hover:underline hover:text-gray-300" href="https://linktr.ee/stokoe0990" target="_blank">Support Me</a>
+      <router-link :to="{name: 'supporters'}" class="hover:underline hover:text-gray-300">Supporters</router-link>
     </div>
     <div class="flex justify-center">
       <p class="text-xs italic text-neutral-500">Goldfishr is an independant project, and not affiliated with WoTC in any way.</p>
