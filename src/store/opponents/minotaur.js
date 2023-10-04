@@ -97,7 +97,7 @@ const cards = [
 
         castHandler: null,
         phaseHandlers: {
-            end: [
+            endStep: [
                 function (card) {
                     card.destroy();
                 }

@@ -28,6 +28,7 @@ const stack = {
                 rootState.challengeDeck.boardState.push(resolvedCard);
             } else {
                 rootState.challengeDeck.nonPermanentsPlayed.push(resolvedCard);
+                rootState.challengeDeck.graveyard.push(resolvedCard);
             }
 
             if (resolvedCard.castHandler) {
