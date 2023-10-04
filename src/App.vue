@@ -1,5 +1,5 @@
 <template>
-  <main class="container py-12 mx-auto">
+  <main class="container py-12 pb-32 mx-auto">
     <div class="flex w-full pb-12 text-center" :class="{
       'flex-col': route.path === '/',
       'flex-row justify-center space-x-4': route.path !== '/'
