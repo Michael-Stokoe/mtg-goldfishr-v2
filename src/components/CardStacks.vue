@@ -6,12 +6,12 @@
 
     <div class="flex flex-col space-y-2">
         <h3 class="text-xl font-semibold font-beleren">Graveyard ({{ cardsInGraveyard }}):</h3>
-        <img src="/images/emptyzone.png" class="flex w-48" alt="Empty Graveyard">
+        <graveyard />
     </div>
 
     <div class="flex flex-col space-y-2">
         <h3 class="text-xl font-semibold font-beleren">Exile ({{ cardsInExile }}):</h3>
-        <img src="/images/emptyzone.png" class="flex w-48" alt="Empty Exile">
+        <exile />
     </div>
 </template>
 
@@ -24,10 +24,14 @@ const store = useStore();
 const router = useRouter();
 const route = useRoute();
 
-import Library from '../components/Library.vue';
+import Library from './Library.vue';
+import Graveyard from './Graveyard.vue';
+import Exile from './Exile.vue';
 
 const components = {
     Library,
+    Graveyard,
+    Exile
 };
 
 const cardsInLibrary = computed(() => store.getters['challengeDeck/cardsInLibrary']);
