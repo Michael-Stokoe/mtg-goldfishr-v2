@@ -26,7 +26,7 @@ const store = createStore({
         playingCommanderDeck: state => state.deckType === 'commander',
         playerFirst: state => state.playerFirst,
         playerFirstChosen: state => state.playerFirst !== null,
-        readyToStart: state => state.initialised && state.gameStarted && !!state.deckType && !!state.playerFirst && state.currentTurn === 0,
+        readyToStart: state => state.initialised && state.gameStarted && !!state.deckType && state.playerFirst !== null && state.currentTurn === 0,
     },
 
     actions: {

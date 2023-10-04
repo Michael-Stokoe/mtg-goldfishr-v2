@@ -13,6 +13,7 @@ const challengeDeck = {
         nonPermanentsPlayed: [],
 
         waitingForCombat: false,
+        waitingForBlockers: false,
 
         handlers: {
             untap: [],
@@ -40,6 +41,7 @@ const challengeDeck = {
         boardEnchantments: (state) => state.boardState.filter(card => card.superTypes.includes('Enchantment')),
         boardCreatures: (state) => state.boardState.filter(card => card.superTypes.includes('Creature')),
         waitingForCombat: (state) => state.waitingForCombat,
+        waitingForBlockers: (state) => state.waitingForBlockers,
     },
 
     actions: {
@@ -121,6 +123,10 @@ const challengeDeck = {
         exileCard({ commit }, card) {
             commit('exileCard', card);
         },
+
+        blockersDeclared({ commit }) {
+            commit('blockersDeclared');
+        }
     },
 
     mutations: {
@@ -213,7 +219,8 @@ const challengeDeck = {
             }
 
             const boardState = Object.assign([], state.boardState);
-            boardState[index].isBlocked = !state.library[index].isBlocked;
+            boardState[index].isBlockedLethal = false;
+            boardState[index].isBlocked = !boardState[index].isBlocked;
             state.boardState = boardState;
         },
         toggleLethalBlock(state, card) {
@@ -225,7 +232,8 @@ const challengeDeck = {
             }
 
             const boardState = Object.assign([], state.boardState);
-            boardState[index].isBlockedAndDying = !state.library[index].isBlockedAndDying;
+            boardState[index].isBlocked = false;
+            boardState[index].isBlockedLethal = !boardState[index].isBlockedLethal;
             state.boardState = boardState;
         },
         destroyCard(state, card) {
@@ -270,6 +278,21 @@ const challengeDeck = {
                     card.tapped = true;
                 }
             });
+
+            state.waitingForBlockers = true;
+        },
+
+        blockersDeclared(state) {
+            state.waitingForBlockers = false;
+
+            state.boardState.forEach(card => {
+                if (card.isAttacking) {
+                    if (!card.isBlocked && !card.isBlockedLethal) {
+                        // player should lose life equal to the creature's power
+                        $evt.emit('lose-life', card.power);
+                    }
+                }
+            })
         }
     },
 }

@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <div v-if="!!playingCommanderDeck && !playerFirstChosen" class="flex flex-col space-y-2">
+            <div v-if="deckTypeChosen && !playerFirstChosen" class="flex flex-col space-y-2">
                 <p>Second, are you going first?</p>
                 <div class="flex justify-center space-x-2">
                     <btn :label="'Yes'" :colour="'green'" @click="playerFirst(true)" />
@@ -54,9 +54,7 @@
             <div v-if="readyToStart" class="flex flex-col space-y-2">
                 <div>
                     <p>Alright, we're ready to start.</p>
-                    <p v-if="playerIsFirst">Take your desired amount of setup turns, then hit the "Start Game" button to
-                        start
-                        the opponent's turn.</p>
+                    <p v-if="playerIsFirst">Take your desired amount of setup turns, then hit the "Start Game" button to start the opponent's turn.</p>
                 </div>
                 <div class="flex justify-center space-x-2">
                     <btn :label="'Start Playing!'" :colour="'green'" @click="startFirstTurn" />
@@ -71,6 +69,17 @@
 
                 <div class="flex justify-center space-x-2">
                     <btn :label="'Start Combat'" :colour="'red'" @click="startCombat" />
+                </div>
+            </div>
+
+            <div v-if="waitingForBlockers" class="flex flex-col space-y-2">
+                <div>
+                    <p>Declare your blocks against the opponent by clicking the appropriate button on each creature.</p>
+                    <p>Once you're done, click the button below.</p>
+                </div>
+
+                <div class="flex justify-center space-x-2">
+                    <btn :label="'Blockers Declared'" :colour="'green'" @click="blockersDeclared" />
                 </div>
             </div>
             <!-- BLOCKERS DECLARED -->
@@ -125,12 +134,12 @@ const gameInitialised = computed(() => store.getters['initialised']);
 const gameTitle = computed(() => store.getters['title']);
 const gameStarted = computed(() => store.getters['started']);
 const deckTypeChosen = computed(() => store.getters['deckTypeChosen']);
-const playingCommanderDeck = computed(() => store.getters['playingCommanderDeck']);
 const playerIsFirst = computed(() => store.getters['playerFirst']);
 const playerFirstChosen = computed(() => store.getters['playerFirstChosen']);
 const readyToStart = computed(() => store.getters['readyToStart']);
 const currentTurn = computed(() => store.getters['currentTurn']);
 const waitingForCombat = computed(() => store.getters['challengeDeck/waitingForCombat']);
+const waitingForBlockers = computed(() => store.getters['challengeDeck/waitingForBlockers']);
 
 // methods
 const startGame = () => {
@@ -152,6 +161,10 @@ const startFirstTurn = () => {
 
 const startCombat = () => {
     store.dispatch('challengeDeck/startCombat');
+}
+
+const blockersDeclared = () => {
+    store.dispatch('challengeDeck/blockersDeclared');
 }
 
 // watchers

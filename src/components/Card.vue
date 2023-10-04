@@ -15,11 +15,11 @@
                         <i class="w-6 fa-solid fa-arrow-rotate-left"></i> <span>Untap</span>
                     </p>
                     <p class="px-4 py-1 text-lg text-gray-300 cursor-pointer hover:text-white hover:bg-neutral-800"
-                        @click="store.dispatch('challengeDeck/toggleBlock')" v-if="card.isAttacking">
+                        @click="store.dispatch('challengeDeck/toggleBlock', card)" v-if="card.isAttacking">
                         <i class="w-6 fa-solid fa-shield"></i> <span>Block</span>
                     </p>
                     <p class="px-4 py-1 text-lg text-gray-300 cursor-pointer hover:text-white hover:bg-neutral-800"
-                        @click="store.dispatch('challengeDeck/toggleLethalBlock')" v-if="card.isAttacking">
+                        @click="store.dispatch('challengeDeck/toggleLethalBlock', card)" v-if="card.isAttacking">
                         <i class="w-6 fa-solid fa-shield-virus"></i> <span>Lethal Block</span>
                     </p>
                     <p class="px-4 py-1 text-lg text-gray-300 cursor-pointer hover:text-white hover:bg-neutral-800"
@@ -48,7 +48,7 @@
                 <div v-if="showBlocked"
                     class="absolute flex flex-col px-2 py-1 text-xs text-gray-900 -translate-y-1/2 bg-gray-200 top-1/2 right-3 rounded-xl">
                     <span v-if="card.isBlocked">Blocked</span>
-                    <span v-if="card.isBlockedAndDying">Lethal Blocked</span>
+                    <span v-if="card.isBlockedLethal">Lethal Blocked</span>
                 </div>
 
                 <div v-if="showPowerToughness"
@@ -76,9 +76,9 @@ const hovering = ref(false);
 const cardIsTapped = computed(() => props.card.tapped);
 const showAbilities = computed(() => props.card.abilities.length > 0);
 const abilities = computed(() => props.card.abilities);
-const showBlocked = computed(() => props.card.isBlocked || props.card.isBlockedAndDying);
+const showBlocked = computed(() => props.card.isBlocked || props.card.isBlockedLethal);
 const showPowerToughness = computed(() => props.card.superTypes.includes('Creature'));
 const isAttacking = computed(() => props.card.isAttacking);
 const isBlocked = computed(() => props.card.isBlocked);
-const isBlockedAndDying = computed(() => props.card.isBlockedAndDying);
+const isBlockedLethal = computed(() => props.card.isBlockedLethal);
 </script>

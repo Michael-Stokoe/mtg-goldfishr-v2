@@ -48,6 +48,12 @@ const store = useStore();
 const router = useRouter();
 const route = useRoute();
 
+onMounted(() => {
+    $evt.on('lose-life', amount => {
+        changeLife(-amount);
+    });
+});
+
 // computed props
 const currentLife = computed(() => store.getters['lifeCounter/currentLife']);
 const startingLife = computed(() => store.getters['lifeCounter/startingLife']);
