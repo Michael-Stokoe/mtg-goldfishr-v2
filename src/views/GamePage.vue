@@ -4,14 +4,16 @@
     </div>
 
     <div class="py-6">
-        <router-link :to="{ name: 'home' }">
-            <div class="flex space-x-2 text-neutral-400 hover:text-white">
-                <div class="flex flex-col justify-center">
-                    <i class="fa-solid fa-circle-chevron-left"></i>
+        <div class="flex space-x-2 text-neutral-400">
+            <router-link :to="{ name: 'home' }">
+                <div class="flex space-x-2 hover:text-white">
+                    <div class="flex flex-col justify-center">
+                        <i class="fa-solid fa-circle-chevron-left"></i>
+                    </div>
+                    <span class="text-xl">Go back</span>
                 </div>
-                <span class="text-xl">Go back</span>
-            </div>
-        </router-link>
+            </router-link>
+        </div>
     </div>
 
     <div class="grid grid-cols-5 gap-6 mb-6">
@@ -84,7 +86,8 @@
             <div v-if="readyToStart" class="flex flex-col space-y-2">
                 <div>
                     <p>Alright, we're ready to start.</p>
-                    <p v-if="playerIsFirst">Take your desired amount of setup turns, then hit the "Start Game" button to start the opponent's turn.</p>
+                    <p v-if="playerIsFirst">Take your desired amount of setup turns, then hit the "Start Game" button to
+                        start the opponent's turn.</p>
                 </div>
                 <div class="flex justify-center space-x-2">
                     <btn :label="'Start Playing!'" :colour="'green'" @click="startFirstTurn">
@@ -140,7 +143,8 @@
                 </div>
 
                 <div class="flex justify-center space-x-2">
-                    <btn :disabled="disableEndPlayerTurnButton" :label="'End your turn'" :colour="'red'" :size="'xl'" @click="endPlayerTurn">
+                    <btn :disabled="disableEndPlayerTurnButton" :label="'End your turn'" :colour="'red'" :size="'xl'"
+                        @click="endPlayerTurn">
                         <template v-slot:append v-if="disableEndPlayerTurnButton">
                             <div>
                                 <i class="fa-solid fa-spinner animate-spin"></i>
