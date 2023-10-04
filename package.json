@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "click-outside-vue3": "^4.0.1",
     "mitt": "^3.0.1",
     "tiny-emitter": "^2.1.0",
     "uuid": "^9.0.1",

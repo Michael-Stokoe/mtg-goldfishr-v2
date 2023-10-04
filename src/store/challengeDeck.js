@@ -93,6 +93,10 @@ const challengeDeck = {
                 }
             }
         },
+        millCards({ commit }, amount) {
+            commit('millCards', amount);
+        },
+
         startCombat({ commit, dispatch }) {
             commit('runGamePhaseHandlers', 'combatStart');
             commit('runBoardStateHandlers', 'combatStart');
