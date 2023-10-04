@@ -14,6 +14,8 @@ const challengeDeck = {
 
         waitingForCombat: false,
         waitingForBlockers: false,
+        waitingForSecondMain: false,
+        waitingForPlayerTurn: false,
 
         handlers: {
             untap: [],
@@ -42,6 +44,8 @@ const challengeDeck = {
         boardCreatures: (state) => state.boardState.filter(card => card.superTypes.includes('Creature')),
         waitingForCombat: (state) => state.waitingForCombat,
         waitingForBlockers: (state) => state.waitingForBlockers,
+        waitingForSecondMain: (state) => state.waitingForSecondMain,
+        waitingForPlayerTurn: (state) => state.waitingForPlayerTurn,
     },
 
     actions: {
@@ -87,17 +91,23 @@ const challengeDeck = {
             commit('startCombat');
         },
         handleCombatDamage({ dispatch }) {
-            // kill any creatures that were lethally blocked
+            dispatch('handleCombatEnd');
         },
         handleCombatEnd({ dispatch }) {
             // TODO: Handle any abilities that trigger at the end of combat
-            // ...
+            dispatch('handleSecondMain');
         },
+
         handleSecondMain({ dispatch }) {
-            // ...
+            dispatch('handleEndStep');
         },
         handleEndStep({ dispatch }) {
-            // ...
+            dispatch('handleCleanup');
+        },
+        handleCleanup({ commit }) {
+            // Handle the cleanup step, then move to the player's turn.
+            commit('handleCleanup');
+            commit('waitingForPlayerTurn');
         },
 
         tapCard({ commit }, card) {
@@ -124,8 +134,14 @@ const challengeDeck = {
             commit('exileCard', card);
         },
 
-        blockersDeclared({ commit }) {
+        blockersDeclared({ commit, dispatch }) {
             commit('blockersDeclared');
+            dispatch('handleCombatDamage');
+        },
+
+        endPlayerTurn({ commit, dispatch }) {
+            commit('endPlayerTurn');
+            dispatch('startTurn');
         }
     },
 
@@ -288,12 +304,33 @@ const challengeDeck = {
             state.boardState.forEach(card => {
                 if (card.isAttacking) {
                     if (!card.isBlocked && !card.isBlockedLethal) {
-                        // player should lose life equal to the creature's power
                         $evt.emit('lose-life', card.power);
                     }
+
+                    if (card.isBlockedLethal) {
+                        $evt.emit('destroy-card', card);
+                    }
                 }
-            })
-        }
+            });
+
+            state.waitingForSecondMain = true;
+        },
+
+        handleCleanup(state) {
+            state.boardState.forEach(card => {
+                card.isAttacking = false;
+                card.isBlocked = false;
+                card.isBlockedLethal = false;
+            });
+        },
+
+        waitingForPlayerTurn(state) {
+            state.waitingForPlayerTurn = true;
+        },
+
+        endPlayerTurn(state) {
+            state.waitingForPlayerTurn = false;
+        },
     },
 }
 

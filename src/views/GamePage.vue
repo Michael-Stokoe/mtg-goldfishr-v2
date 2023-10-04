@@ -72,6 +72,7 @@
                 </div>
             </div>
 
+            <!-- BLOCKERS DECLARED -->
             <div v-if="waitingForBlockers" class="flex flex-col space-y-2">
                 <div>
                     <p>Declare your blocks against the opponent by clicking the appropriate button on each creature.</p>
@@ -82,9 +83,19 @@
                     <btn :label="'Blockers Declared'" :colour="'green'" @click="blockersDeclared" />
                 </div>
             </div>
-            <!-- BLOCKERS DECLARED -->
-            <!-- END COMBAT & CONTINUE -->
+
             <!-- START PLAYER TURN -->
+            <div v-if="waitingForPlayerTurn" class="flex flex-col space-y-2">
+                <div>
+                    <p>The opponent has finished playing its turn.</p>
+                    <p>Play out your turn now, and click the button below to pass the turn back to the opponent.</p>
+                </div>
+
+                <div class="flex justify-center space-x-2">
+                    <btn :label="'End your turn'" :colour="'red'" :size="'xl'" @click="endPlayerTurn" />
+                </div>
+            </div>
+
             <!-- END PLAYER TURN -->
         </div>
 
@@ -140,6 +151,7 @@ const readyToStart = computed(() => store.getters['readyToStart']);
 const currentTurn = computed(() => store.getters['currentTurn']);
 const waitingForCombat = computed(() => store.getters['challengeDeck/waitingForCombat']);
 const waitingForBlockers = computed(() => store.getters['challengeDeck/waitingForBlockers']);
+const waitingForPlayerTurn = computed(() => store.getters['challengeDeck/waitingForPlayerTurn']);
 
 // methods
 const startGame = () => {
@@ -165,6 +177,10 @@ const startCombat = () => {
 
 const blockersDeclared = () => {
     store.dispatch('challengeDeck/blockersDeclared');
+}
+
+const endPlayerTurn = () => {
+    store.dispatch('challengeDeck/endPlayerTurn');
 }
 
 // watchers
