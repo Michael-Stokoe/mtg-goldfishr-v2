@@ -17,21 +17,23 @@
 
     <router-view></router-view>
   </main>
-  
+
   <div class="fixed bottom-0 flex flex-col w-full p-6 space-y-2 bg-black">
     <div class="flex justify-center space-x-4">
-      <a class="hover:underline hover:text-gray-300" href="https://github.com/Michael-Stokoe/mtg-goldfishr-v2" target="_blank">GitHub Repo</a>
+      <a class="hover:underline hover:text-gray-300" href="https://github.com/Michael-Stokoe/mtg-goldfishr-v2"
+        target="_blank">GitHub Repo</a>
       <a class="hover:underline hover:text-gray-300" href="https://linktr.ee/stokoe0990" target="_blank">Support Me</a>
-      <router-link :to="{name: 'supporters'}" class="hover:underline hover:text-gray-300">Supporters</router-link>
+      <router-link :to="{ name: 'supporters' }" class="hover:underline hover:text-gray-300">Supporters</router-link>
     </div>
     <div class="flex justify-center">
-      <p class="text-xs italic text-neutral-500">Goldfishr is an independant project, and not affiliated with WoTC in any way.</p>
+      <p class="text-xs italic text-neutral-500">Goldfishr is an independant project, and not affiliated with WoTC in any
+        way.</p>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onMounted, onUnmounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import { useRouter } from "vue-router";
@@ -39,4 +41,48 @@ import { useRouter } from "vue-router";
 const store = useStore();
 const route = useRoute();
 const router = useRouter();
+
+const holdingControl = ref(false);
+
+const listenerUp = ({ key }) => {
+  if (key === 'ArrowUp') {
+    if (holdingControl.value) {
+      $evt.emit('gain-life', 10);
+      return;
+    }
+
+    $evt.emit('gain-life', 1);
+  }
+
+  if (key === 'ArrowDown') {
+    if (holdingControl.value) {
+      $evt.emit('lose-life', 10);
+      return;
+    }
+
+    $evt.emit('lose-life', 1);
+  }
+
+  if (key === 'Control') {
+    holdingControl.value = false;
+  }
+}
+
+const listenerDown = ({ key }) => {
+  if (key === 'Control') {
+    holdingControl.value = true;
+  }
+}
+
+onMounted(() => {
+  window.addEventListener("keyup", listenerUp);
+
+  window.addEventListener("keydown", listenerDown);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("keyup", listenerUp);
+
+  window.removeEventListener("keydown", listenerDown);
+});
 </script>
