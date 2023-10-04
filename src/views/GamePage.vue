@@ -92,7 +92,13 @@
                 </div>
 
                 <div class="flex justify-center space-x-2">
-                    <btn :label="'End your turn'" :colour="'red'" :size="'xl'" @click="endPlayerTurn" />
+                    <btn :disabled="disableEndPlayerTurnButton" :label="'End your turn'" :colour="'red'" :size="'xl'" @click="endPlayerTurn">
+                        <template v-slot:append v-if="disableEndPlayerTurnButton">
+                            <div>
+                                <i class="fa-solid fa-spinner animate-spin"></i>
+                            </div>
+                        </template>
+                    </btn>
                 </div>
             </div>
 
@@ -131,6 +137,9 @@ onMounted(() => {
 
     $evt.on('cast-spells', amount => store.dispatch('challengeDeck/castSpells', amount));
 });
+
+// data
+const disableEndPlayerTurnButton = ref(true);
 
 // components
 import LifeCounter from '../components/LifeCounter.vue';
@@ -178,6 +187,7 @@ const startFirstTurn = () => {
 }
 
 const startCombat = () => {
+    disableEndPlayerTurnButton.value = true;
     store.dispatch('challengeDeck/startCombat');
 }
 
@@ -195,4 +205,12 @@ watch(gameInitialised, (newValue, oldValue) => {
         store.dispatch('challengeDeck/loadDeck', opponent.value);
     }
 }, { immediate: true });
+
+watch(waitingForPlayerTurn, (newValue, oldValue) => {
+    if (newValue === true && oldValue === false) {
+        setTimeout(() => {
+            disableEndPlayerTurnButton.value = false;
+        }, 5000);
+    }
+});
 </script>

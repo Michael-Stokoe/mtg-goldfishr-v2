@@ -1,6 +1,9 @@
 <template>
     <button :disabled="disabled" :class="classes">
-        {{ label }}
+        <div class="flex space-x-2">
+            <span>{{ label }}</span>
+            <slot name="append"></slot>
+        </div>
     </button>
 </template>
 
@@ -28,6 +31,7 @@ const props = defineProps({
 
 const classes = computed(() => {
     let classes = 'rounded-full font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2';
+    classes += ' disabled:opacity-50 disabled:cursor-not-allowed';
     classes += ` bg-${props.colour}-600 hover:bg-${props.colour}-500 focus-visible:outline-${props.colour}-600`;
 
     switch (props.size) {
