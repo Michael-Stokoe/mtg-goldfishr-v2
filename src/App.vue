@@ -24,7 +24,7 @@
       <a class="hover:underline hover:text-gray-300" href="https://linktr.ee/stokoe0990" target="_blank">Support Me</a>
     </div>
     <div class="flex justify-center">
-      <p class="italic text-neutral-300">Goldfishr is an independant project, not affiliated with WoTC in any way.</p>
+      <p class="text-xs italic text-neutral-500">Goldfishr is an independant project, and not affiliated with WoTC in any way.</p>
     </div>
   </div>
 </template>
