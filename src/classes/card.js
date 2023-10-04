@@ -28,17 +28,28 @@ export default class Card {
     castHandler = function () { };
 
     phaseHandlers = {
+        // untap: [],
+        // upkeep: [],
+        // draw: [],
+        // main: [],
+        // combatStart: [],
+        // attackersDeclared: [],
+        // blockersDeclared: [],
+        // combatDamage: [],
+        // combatEnd: [],
+        // secondMain: [],
+        // end: [],
+
+        
         untap: [],
         upkeep: [],
         draw: [],
-        main1: [],
+        main: [],
         combatStart: [],
-        attackersDeclared: [],
-        blockersDeclared: [],
         combatDamage: [],
         combatEnd: [],
-        main2: [],
-        end: [],
+        secondMain: [],
+        endStep: [],
     }
 
     stateHandlers = {
@@ -69,5 +80,21 @@ export default class Card {
 
     destroy() {
         $evt.emit('destroy-card', this);
+    }
+
+    damage(amount) {
+        let remaining = this.toughness - amount;
+
+        if (remaining <= 0) {
+            this.destroy();
+        }
+    }
+
+    addAbility(ability) {
+        this.abilities.push(ability);
+    }
+
+    removeAbility(ability) {
+        this.abilities = this.abilities.filter(a => a !== ability);
     }
 }

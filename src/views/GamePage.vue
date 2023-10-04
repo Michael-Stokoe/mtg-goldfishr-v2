@@ -124,6 +124,12 @@ onMounted(() => {
     store.dispatch('setupGame', opponent.value);
 
     $evt.on('destroy-card', card => store.dispatch('challengeDeck/destroyCard', card));
+
+    $evt.on('sacrifice-creatures', amount => store.dispatch('challengeDeck/sacrificeCreatures', amount));
+
+    $evt.on('mill-cards', amount => store.dispatch('challengeDeck/millCards', amount));
+
+    $evt.on('cast-spells', amount => store.dispatch('challengeDeck/castSpells', amount));
 });
 
 // components

@@ -18,23 +18,35 @@
 
         <div class="flex justify-center space-x-2">
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
-                @click="changeLife(-10)">-10</button>
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold text-center rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
+                @click="changeLife(-10)">
+                <span class="w-full">-10</span>
+            </button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
-                @click="changeLife(-5)">-5</button>
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold text-center rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
+                @click="changeLife(-5)">
+                <span class="w-full">-5</span>
+            </button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
-                @click="changeLife(-1)">-1</button>
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold text-center rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
+                @click="changeLife(-1)">
+                <span class="w-full">-1</span>
+            </button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
-                @click="changeLife(1)">+1</button>
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold text-center rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
+                @click="changeLife(1)">
+                <span class="w-full">+1</span>
+            </button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
-                @click="changeLife(5)">+5</button>
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold text-center rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
+                @click="changeLife(5)">
+                <span class="w-full">+5</span>
+            </button>
             <button
-                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
-                @click="changeLife(10)">+10</button>
+                class="flex flex-col justify-center w-12 h-12 text-xl font-semibold text-center rounded-full font-beleren bg-neutral-800 hover:text-neutral-800 hover:bg-neutral-500"
+                @click="changeLife(10)">
+                <span class="w-full">+10</span>
+            </button>
         </div>
     </div>
 </template>
@@ -49,9 +61,8 @@ const router = useRouter();
 const route = useRoute();
 
 onMounted(() => {
-    $evt.on('lose-life', amount => {
-        changeLife(-amount);
-    });
+    $evt.on('gain-life', amount => changeLife(amount));
+    $evt.on('lose-life', amount => changeLife(-amount));
 });
 
 // computed props

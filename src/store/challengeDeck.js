@@ -1,4 +1,4 @@
-// import minotaurDecklist from '../decklists/minotaur.json';
+// import minotaur from './opponents/minotaur-test.js';
 import minotaur from './opponents/minotaur.js';
 import Card from '../classes/card.js';
 
@@ -55,53 +55,68 @@ const challengeDeck = {
         },
 
         startTurn({ dispatch }) {
+            dispatch('resetState');
             dispatch('handleUntap');
+        },
+        resetState({ commit }) {
+            commit('resetState');
         },
         handleUntap({ dispatch, commit }) {
             commit('untapAll');
+            commit('runGamePhaseHandlers', 'untap');
+            commit('runBoardStateHandlers', 'untap');
             dispatch('handleUpkeep');
         },
-        handleUpkeep({ dispatch }) {
+        handleUpkeep({ dispatch, commit }) {
+            commit('runGamePhaseHandlers', 'upkeep');
+            commit('runBoardStateHandlers', 'upkeep');
             dispatch('handleDraw');
         },
-        handleDraw({ dispatch }) {
+        handleDraw({ dispatch, commit }) {
+            commit('runGamePhaseHandlers', 'draw');
+            commit('runBoardStateHandlers', 'draw');
             dispatch('handleMainPhase');
         },
-        handleMainPhase({ dispatch, commit, state }) {
-            // TODO: Handle any abilities that trigger at the start of main phase
+        handleMainPhase({ dispatch, commit }) {
+            commit('runGamePhaseHandlers', 'main');
+            commit('runBoardStateHandlers', 'main');
 
-            // Cast the first 2 cards from library
-            if (state.library.length > 1) {
-                dispatch('stack/addCard', state.library[0], { root: true });
-                dispatch('stack/addCard', state.library[1], { root: true });
-
-                commit('removeCardsFromLibrary', 2);
-            } else if (state.library.length > 0) {
-                dispatch('stack/addCard', state.library[0], { root: true });
-
-                commit('removeCardsFromLibrary', 1);
-            }
+            dispatch('castSpells', 2);
 
             commit('waitingForCombat');
         },
+        castSpells({ commit, dispatch, state }, amount) {
+            for (let i = 0; i < amount; i++) {
+                if (state.library.length > 0) {
+                    dispatch('stack/addCard', state.library[0], { root: true });
+                    commit('removeCardsFromLibrary', 1);
+                }
+            }
+        },
         startCombat({ commit, dispatch }) {
-            // TODO: Resolve any abilities that trigger at the start of combat
-            // tap all valid attackers
-
+            commit('runGamePhaseHandlers', 'combatStart');
+            commit('runBoardStateHandlers', 'combatStart');
             commit('startCombat');
         },
-        handleCombatDamage({ dispatch }) {
+        handleCombatDamage({ dispatch, commit }) {
+            commit('runGamePhaseHandlers', 'combatDamage');
+            commit('runBoardStateHandlers', 'combatDamage');
             dispatch('handleCombatEnd');
         },
-        handleCombatEnd({ dispatch }) {
-            // TODO: Handle any abilities that trigger at the end of combat
+        handleCombatEnd({ dispatch, commit }) {
+            commit('runGamePhaseHandlers', 'combatEnd');
+            commit('runBoardStateHandlers', 'combatEnd');
             dispatch('handleSecondMain');
         },
 
-        handleSecondMain({ dispatch }) {
+        handleSecondMain({ dispatch, commit }) {
+            commit('runGamePhaseHandlers', 'secondMain');
+            commit('runBoardStateHandlers', 'secondMain');
             dispatch('handleEndStep');
         },
-        handleEndStep({ dispatch }) {
+        handleEndStep({ dispatch, commit }) {
+            commit('runGamePhaseHandlers', 'endStep');
+            commit('runBoardStateHandlers', 'endStep');
             dispatch('handleCleanup');
         },
         handleCleanup({ commit }) {
@@ -132,6 +147,9 @@ const challengeDeck = {
         },
         exileCard({ commit }, card) {
             commit('exileCard', card);
+        },
+        sacrificeCreatures({ commit }, amount) {
+            commit('sacrificeCreatures', amount);
         },
 
         blockersDeclared({ commit, dispatch }) {
@@ -169,6 +187,26 @@ const challengeDeck = {
 
             state.library = library;
         },
+        resetState(state) {
+            state.handlers = {
+                untap: [],
+                upkeep: [],
+                draw: [],
+                main: [],
+                combatStart: [],
+                combatDamage: [],
+                combatEnd: [],
+                secondMain: [],
+                endStep: [],
+            };
+
+            state.nonPermanentsPlayed = [];
+
+            state.waitingForCombat = false;
+            state.waitingForBlockers = false;
+            state.waitingForSecondMain = false;
+            state.waitingForPlayerTurn = false;
+        },
         shuffleDeck(state) {
             let shuffledCards = Object.assign(state.library, []);
 
@@ -180,6 +218,18 @@ const challengeDeck = {
             }
 
             state.library = shuffledCards;
+        },
+        runGamePhaseHandlers(state, handlerType) {
+            if (state.handlers[handlerType] && state.handlers[handlerType].length > 0) {
+                state.handlers[handlerType].forEach(handler => handler(state));
+            }
+        },
+        runBoardStateHandlers(state, handlerType) {
+            state.boardState.forEach(card => {
+                if (card.phaseHandlers[handlerType] && card.phaseHandlers[handlerType].length > 0) {
+                    card.phaseHandlers[handlerType].forEach(handler => handler(card));
+                }
+            });
         },
         untapAll(state) {
             state.boardState.forEach(card => {
@@ -278,6 +328,21 @@ const challengeDeck = {
             boardState.splice(index, 1);
             state.boardState = boardState;
         },
+        sacrificeCreatures(state, amount) {
+            // filter state.boardState by creatures and sort by ranking
+            const creatures = state.boardState.filter(card => card.superTypes.includes('Creature')).sort((a, b) => a.rank - b.rank);
+            for(let i = 0; i < amount; i++) {
+                if (creatures[i]) {
+                    creatures[i].destroy();
+                }
+            }
+        },
+        millCards(state, amount) {
+            let library = Object.assign([], state.library);
+            let cards = library.splice(0, amount);
+            state.library = library;
+            state.graveyard.push(...cards);
+        },
 
         waitingForCombat(state) {
             state.waitingForCombat = true;
@@ -285,8 +350,6 @@ const challengeDeck = {
 
         startCombat(state) {
             state.waitingForCombat = false;
-
-            state.handlers.combatStart.forEach(handler => handler(state));
 
             state.boardState.forEach(card => {
                 if (card.superTypes.includes('Creature') && card.tapped === false) {
@@ -322,6 +385,8 @@ const challengeDeck = {
                 card.isBlocked = false;
                 card.isBlockedLethal = false;
             });
+            state.nonPermanentsPlayed = [];
+            
         },
 
         waitingForPlayerTurn(state) {

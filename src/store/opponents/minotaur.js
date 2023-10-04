@@ -1,3 +1,5 @@
+import challengeDeck from "../challengeDeck";
+
 const cards = [
     // Creatures
 
@@ -14,7 +16,7 @@ const cards = [
 
         ranking: 1,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -32,7 +34,7 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -50,7 +52,7 @@ const cards = [
 
         ranking: 3,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {},
 
         stateHandlers: {
@@ -75,7 +77,7 @@ const cards = [
 
         ranking: 1,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -93,7 +95,7 @@ const cards = [
 
         ranking: 2,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {
             end: [
                 function (card) {
@@ -143,6 +145,7 @@ const cards = [
     {
         name: 'Descend on the Prey',
         image: '/images/decks/minotaurs/tbth-7-descend-on-the-prey.jpg',
+        // Whenever a minotaur attacks this turn, it gains first strike until end of turn and must be blocked this turn if able.
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -153,7 +156,23 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: function (state) {
+            state.handlers.combatStart.push(challengeDeck => {
+                challengeDeck.boardState.forEach(card => {
+                    if (card.superTypes.includes('Creature') && !card.tapped) {
+                        card.addAbility('First Strike');
+
+                        if (!card.phaseHandlers.end) {
+                            card.phaseHandlers.end = [];
+                        }
+
+                        card.phaseHandlers.end.push(creature => {
+                            creature.removeAbility('First Strike');
+                        });
+                    }
+                });
+            });
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -161,6 +180,7 @@ const cards = [
     {
         name: 'Intervention of Keranos',
         image: '/images/decks/minotaurs/tbth-8-intervention-of-keranos.jpg',
+        // At the beginning of combat this turn, Intervention of Keranos deals 3 damage to each creature.
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -171,7 +191,15 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: function (state) {
+            state.handlers.combatStart.push(challengeDeck => {
+                challengeDeck.boardState.forEach(card => {
+                    if (card.superTypes.includes('Creature')) {
+                        card.damage(3);
+                    }
+                });
+            });
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -179,6 +207,7 @@ const cards = [
     {
         name: 'Touch of the Horned God',
         image: '/images/decks/minotaurs/tbth-9-touch-of-the-horned-god.jpg',
+        // Whenever a Minotaur attacks this turn, it gains deathtouch until end of turn.
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -189,7 +218,23 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: function (state) {
+            state.handlers.combatStart.push(challengeDeck => {
+                challengeDeck.boardState.forEach(card => {
+                    if (card.superTypes.includes('Creature') && !card.tapped) {
+                        card.addAbility('Deathtouch');
+
+                        if (!card.phaseHandlers.end) {
+                            card.phaseHandlers.end = [];
+                        }
+
+                        card.phaseHandlers.end.push(creature => {
+                            creature.removeAbility('Deathtouch');
+                        });
+                    }
+                });
+            });
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -197,6 +242,7 @@ const cards = [
     {
         name: 'Unquenchable Fury',
         image: '/images/decks/minotaurs/tbth-10-unquenchable-fury.jpg',
+        // Each Minotaur can't be blocked this turn except by two or more creatures.
 
         superTypes: ['Sorcery'],
         subTypes: [],
@@ -207,7 +253,23 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: function (state) {
+            state.handlers.combatStart.push(challengeDeck => {
+                challengeDeck.boardState.forEach(card => {
+                    if (card.superTypes.includes('Creature') && !card.tapped) {
+                        card.addAbility('Menace');
+
+                        if (!card.phaseHandlers.end) {
+                            card.phaseHandlers.end = [];
+                        }
+
+                        card.phaseHandlers.end.push(creature => {
+                            creature.removeAbility('Menace');
+                        });
+                    }
+                });
+            });
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -227,15 +289,22 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {
-            main1: [
+            main: [
                 function (card) {
-                    card.owner.castTopSpellOfLibrary();
+                    $evt.emit('cast-spells', 1);
                 }
             ]
         },
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (card) {
+                    // The horde sacrifices two Minotaurs
+                    $evt.emit('sacrifice-creatures', 2);
+                }
+            ]
+        },
     },
 
     {
@@ -251,15 +320,22 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {
-            main1: [
+            main: [
                 function (card) {
-                    card.owner.castTopSpellOfLibrary();
+                    $evt.emit('cast-spells', 1);
                 }
             ]
         },
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (card) {
+                    // The horde mills 7 cards
+                    $evt.emit('mill-cards', 7);
+                }
+            ]
+        },
     },
 
     {
@@ -275,15 +351,21 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {
-            main1: [
+            main: [
                 function (card) {
-                    card.owner.castTopSpellOfLibrary();
+                    $evt.emit('cast-spells', 1);
                 }
             ]
         },
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (card) {
+                    // Each player draws a card
+                }
+            ]
+        },
     },
 
     {
@@ -299,15 +381,21 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {
-            main1: [
+            main: [
                 function (card) {
-                    card.owner.castTopSpellOfLibrary();
+                    $evt.emit('cast-spells', 1);
                 }
             ]
         },
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (card) {
+                    $evt.emit('gain-life', 5);
+                }
+            ]
+        },
     },
 
     {
@@ -323,15 +411,21 @@ const cards = [
 
         ranking: 0,
 
-        castHandler: function () { },
+        castHandler: null,
         phaseHandlers: {
-            main1: [
+            main: [
                 function (card) {
-                    card.owner.castTopSpellOfLibrary();
+                    $evt.emit('cast-spells', 1);
                 }
             ]
         },
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (card) {
+                    // Each player reanimates a creature from their graveyard
+                }
+            ]
+        },
     },
 ];
 
