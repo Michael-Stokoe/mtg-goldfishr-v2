@@ -65,15 +65,15 @@ const challengeDeck = {
         resetState({ commit, dispatch, state }) {
             commit('loadDeck', state.opponent);
             commit('shuffleDeck');
-            dispatch('resetState');
+            commit('resetState');
         },
 
         changeAutoSubtract({ commit }, value) {
             commit('changeAutoSubtract', value);
         },
 
-        startTurn({ dispatch }) {
-            dispatch('clearTurnState');
+        startTurn({ dispatch, commit }) {
+            commit('clearTurnState');
             dispatch('handleUntap');
         },
         handleUntap({ dispatch, commit }) {
