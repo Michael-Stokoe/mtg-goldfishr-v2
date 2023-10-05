@@ -6,6 +6,7 @@ const challengeDeck = {
     namespaced: true,
 
     state: () => ({
+        opponent: null,
         library: [],
         graveyard: [],
         exile: [],
@@ -57,7 +58,14 @@ const challengeDeck = {
         loadDeck({ commit }, opponent) {
             commit('loadDeck', opponent);
             commit('loadRules', opponent);
+            commit('setOpponent', opponent);
             commit('shuffleDeck');
+        },
+
+        resetState({ commit, dispatch, state }) {
+            commit('loadDeck', state.opponent);
+            commit('shuffleDeck');
+            dispatch('resetState');
         },
 
         changeAutoSubtract({ commit }, value) {
@@ -178,6 +186,9 @@ const challengeDeck = {
     },
 
     mutations: {
+        setOpponent(state, opponent) {
+            state.opponent = opponent;
+        },
         loadDeck(state, opponent) {
             let decklists = {
                 minotaur: minotaur,
@@ -215,6 +226,15 @@ const challengeDeck = {
             }
         },
         resetState(state) {
+            state.graveyard = [];
+            state.exile = [];
+            state.boardState = [];
+            state.nonPermanentsPlayed = [];
+
+            state.waitingForCombat = false;
+            state.waitingForBlockers = false;
+            state.waitingForSecondMain = false;
+            state.waitingForPlayerTurn = false;
             state.handlers = {
                 untap: [],
                 upkeep: [],
@@ -226,13 +246,6 @@ const challengeDeck = {
                 secondMain: [],
                 endStep: [],
             };
-
-            state.nonPermanentsPlayed = [];
-
-            state.waitingForCombat = false;
-            state.waitingForBlockers = false;
-            state.waitingForSecondMain = false;
-            state.waitingForPlayerTurn = false;
         },
         shuffleDeck(state) {
             let shuffledCards = Object.assign(state.library, []);

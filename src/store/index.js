@@ -54,9 +54,21 @@ const store = createStore({
         nextPhase({ commit }) {
             // ...
         },
+        resetGame({ commit, dispatch }) {
+            commit('resetState');
+            dispatch('challengeDeck/resetState');
+            dispatch('lifeCounter/resetState');
+            dispatch('stack/resetState');
+        }
     },
 
     mutations: {
+        resetState(state) {
+            state.gameStarted = false;
+            state.deckType = null;
+            state.playerFirst = null;
+            state.currentTurn = 0;
+        },
         setupGame(state, title) {
             state.title = title;
 

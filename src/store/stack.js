@@ -13,6 +13,9 @@ const stack = {
     },
 
     actions: {
+        resetState({ commit }) {
+            commit('resetState');
+        },
         changeAutoResolve({ commit }, value) {
             commit('changeAutoResolve', value);
         },
@@ -56,6 +59,9 @@ const stack = {
     },
 
     mutations: {
+        resetState(state) {
+            state.stack = [];
+        },
         addCard(state, card) {
             state.stack.push(card);
         },

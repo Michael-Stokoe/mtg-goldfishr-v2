@@ -21,6 +21,9 @@ const lifeCounter = {
         setLife({ commit }, amount) {
             commit('setLife', amount);
         },
+        resetState({ commit }) {
+            commit('resetState');
+        }
     },
 
     mutations: {
@@ -33,6 +36,10 @@ const lifeCounter = {
         },
         setLife(state, amount) {
             state.currentLifeTotal = amount;
+        },
+        resetState(state) {
+            state.currentLifeTotal = 0;
+            state.startingLifeTotal = 0;
         },
     },
 }

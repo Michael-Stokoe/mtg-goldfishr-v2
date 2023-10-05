@@ -50,8 +50,27 @@
         </div>
 
         <div class="flex justify-center space-x-2">
-            <btn :label="'Rules / How To'" @click="toggleRulesModal" />
-            <btn :label="'Settings'" @click="toggleSettingsModal" />
+            <btn :label="'Rules / How To'" @click="toggleRulesModal">
+                <template v-slot:append>
+                    <div>
+                        <i class="text-xs fa-solid fa-book"></i>
+                    </div>
+                </template>
+            </btn>
+            <btn :label="'Settings'" @click="toggleSettingsModal">
+                <template v-slot:append>
+                    <div>
+                        <i class="text-xs fa-solid fa-gear"></i>
+                    </div>
+                </template>
+            </btn>
+            <btn :label="'Reset'" :colour="'red'" @click="resetGame">
+                <template v-slot:append>
+                    <div>
+                        <i class="text-xs fa-solid fa-power-off"></i>
+                    </div>
+                </template>
+            </btn>
         </div>
     </div>
 </template>
@@ -91,5 +110,9 @@ const toggleRulesModal = () => {
 
 const toggleSettingsModal = () => {
     $evt.emit('toggle-settings-modal');
+};
+
+const resetGame = () => {
+    store.dispatch('resetGame');
 };
 </script>
