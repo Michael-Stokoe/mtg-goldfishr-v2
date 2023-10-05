@@ -28,7 +28,13 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player gains 2 life
+                }
+            ]
+        },
     },
     {
         name: 'Ravenous Brute Head',
@@ -47,7 +53,14 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player gains 2 life
+                    // player draws a card
+                }
+            ]
+        },
     },
     {
         name: 'Savage Vigor Head',
@@ -67,8 +80,22 @@ export const cards = [
         ranking: 2,
 
         castHandler: null,
-        phaseHandlers: {},
-        stateHandlers: {},
+        phaseHandlers: {
+            endStep: [
+                function (state) {
+                    // reveal top card of library
+                    // cast card
+                }
+            ]
+        },
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player gains 4 life
+                    // player draws a card
+                }
+            ]
+        },
     },
     {
         name: 'Snapping Fang Head',
@@ -87,8 +114,21 @@ export const cards = [
         ranking: 2,
 
         castHandler: null,
-        phaseHandlers: {},
-        stateHandlers: {},
+        phaseHandlers: {
+            endStep: [
+                function (state) {
+                    // each player takes 1 damage
+                }
+            ]
+        },
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player gains 4 life
+                    // player draws a card
+                }
+            ]
+        },
     },
     {
         name: 'Shrieking Titan Head',
@@ -107,8 +147,21 @@ export const cards = [
         ranking: 2,
 
         castHandler: null,
-        phaseHandlers: {},
-        stateHandlers: {},
+        phaseHandlers: {
+            endStep: [
+                function (state) {
+                    // each player discards a card
+                }
+            ]
+        },
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player gains 4 life
+                    // player draws a card
+                }
+            ]
+        },
     },
 
     // Sorceries
@@ -127,7 +180,9 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // players can't cast spells until Hydra's next turn
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -147,7 +202,11 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // each player may sacrifice a creature
+            // each player who sacrificed a creature chooses a head and taps it
+            // each player who didn't sacrifice a creature loses 3 life
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -167,7 +226,11 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // place exactly two cards named Hydra Head onto the battlefield from the Hydra’s graveyard
+            // if you can't, reveal cards from the top of the Hydra’s library until you reveal a Head card
+            // put that card onto the battlefield and the rest into the Hydra’s graveyard
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -185,7 +248,9 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // each head gains indestructible until the end of the Hydra’s next turn
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -205,7 +270,11 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // if there are five or more Heads on the battlefield,
+            // tap two of them and they don’t untap during the Hydra’s next untap step
+            // otherwise, reveal the top card of the Hydra’s library and the Hydra casts that card
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -224,7 +293,10 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // choose one — Noxious Hydra Breath deals 5 damage to each player
+            // or destroy each tapped non-Head creature
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -242,7 +314,10 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // destroy target head
+            // if that head was elite, the Hydra takes an extra turn after this one
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -262,7 +337,11 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // each player exiles a creature they control
+            // until the Hydra’s next turn, when a Head leaves the battlefield,
+            // return the exiled cards to the battlefield under their owners’ control
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -281,7 +360,11 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // tap up to two heads
+            // they don’t untap during the Hydra’s next untap step
+            // Torn Between Heads deals 5 damage to each player
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -299,7 +382,9 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // Unified Lunge deals X damage to each player, where X is the number of Heads on the battlefield
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },

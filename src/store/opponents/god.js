@@ -27,7 +27,13 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // Player wins the game
+                }
+            ]
+        },
     },
 
     // Enchantment Creatures
@@ -48,7 +54,13 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player gains 3 life
+                }
+            ]
+        },
     },
 
     // Creatures
@@ -69,7 +81,18 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            enterBattlefield: [
+                function (state) {
+                    // Xenagos Ascended attacks this turn if able
+                }
+            ],
+            death: [
+                function (state) {
+                    // player gains 2 life
+                }
+            ]
+        },
     },
     {
         name: 'Pheres-Band Revelers',
@@ -87,7 +110,13 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player draws a card
+                }
+            ]
+        },
     },
     {
         name: 'Rollicking Throng',
@@ -106,7 +135,13 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            enterBattlefield: [
+                function (state) {
+                    // Xenagos casts the top card of his library
+                }
+            ],
+        },
     },
     {
         name: 'Serpent Dancers',
@@ -117,6 +152,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Nymph', 'Reveler'],
         amount: 2,
+        abilities: ['Deathtouch'],
 
         power: 2,
         toughness: 4,
@@ -125,7 +161,13 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player draws a card
+                }
+            ]
+        },
     },
     {
         name: 'Wild Maenads',
@@ -136,6 +178,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Nymph', 'Reveler'],
         amount: 2,
+        abilities: ['First Strike'],
 
         power: 3,
         toughness: 1,
@@ -144,7 +187,13 @@ export const cards = [
 
         castHandler: null,
         phaseHandlers: {},
-        stateHandlers: {},
+        stateHandlers: {
+            death: [
+                function (state) {
+                    // player gains 3 life
+                }
+            ]
+        },
     },
 
     // Sorceries
@@ -162,7 +211,9 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // all Revelers gain haste until end of turn and attack this combat if able
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -181,7 +232,10 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function () {
+            // player may sacrifice an artifact or enchantment
+            // Impulsive Destruction deals 3 damage if they didn’t
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -201,7 +255,10 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // Return two cards named Ecstatic Piper from Xenagos’s graveyard to the battlefield
+            // Impulsive Return deals damage to each player equal to the number of Revelers on the battlefield
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -220,7 +277,10 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // at the beginning of combat this turn,
+            // each Reveler deals 1 damage to each player and each creature those players control
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -238,7 +298,9 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // Xenagos Ascended gains trample until end of turn and attacks this turn if able
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -256,7 +318,9 @@ export const cards = [
 
         ranking: 0,
 
-        castHandler: null,
+        castHandler: function (state) {
+            // Xenagos’s Strike deals 4 damage to the player
+        },
         phaseHandlers: {},
         stateHandlers: {},
     },
@@ -277,7 +341,13 @@ export const cards = [
         ranking: 0,
 
         castHandler: null,
-        phaseHandlers: {},
+        phaseHandlers: {
+            combatStart: [
+                function (state) {
+                    // Whenever a Reveler attacks, Dance of Flame deals 1 damage to each player
+                }
+            ]
+        },
         stateHandlers: {},
     },
     {
@@ -295,7 +365,13 @@ export const cards = [
         ranking: 0,
 
         castHandler: null,
-        phaseHandlers: {},
+        phaseHandlers: {
+            combatStart: [
+                function (state) {
+                    // all Revelers have haste and attack each turn if able
+                }
+            ]
+        },
         stateHandlers: {},
     },
 ];
