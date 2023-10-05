@@ -13,6 +13,9 @@ const stack = {
     },
 
     actions: {
+        changeAutoResolve({ commit }, value) {
+            commit('changeAutoResolve', value);
+        },
         addCard({ commit, state, dispatch }, card) {
             commit('addCard', card);
 
@@ -58,6 +61,9 @@ const stack = {
         },
         removeCard(state) {
             state.stack.pop();
+        },
+        changeAutoResolve(state, value) {
+            state.autoResolveSpells = value;
         },
     },
 }

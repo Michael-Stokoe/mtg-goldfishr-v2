@@ -14,7 +14,9 @@ export const rules = `
     <li>The Horde will ignore any effects that are impossible for it to perform, such as drawing or discarding cards.</li>
 </ul>
 
+<div>
 <a href="https://mtg.fandom.com/wiki/Battle_the_Horde" class="text-neutral-400 hover:text-white hover:underline" target="_blank">More information here</a>
+</div>
 `;
 
 export const cards = [

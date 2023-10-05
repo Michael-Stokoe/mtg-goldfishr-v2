@@ -49,8 +49,9 @@
             </button>
         </div>
 
-        <div class="flex justify-center">
+        <div class="flex justify-center space-x-2">
             <btn :label="'Rules / How To'" @click="toggleRulesModal" />
+            <btn :label="'Settings'" @click="toggleSettingsModal" />
         </div>
     </div>
 </template>
@@ -86,5 +87,9 @@ const changeLife = (amount) => {
 
 const toggleRulesModal = () => {
     $evt.emit('toggle-rules-modal');
+};
+
+const toggleSettingsModal = () => {
+    $evt.emit('toggle-settings-modal');
 };
 </script>

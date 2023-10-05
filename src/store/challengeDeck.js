@@ -18,6 +18,7 @@ const challengeDeck = {
         waitingForPlayerTurn: false,
 
         rulesText: null,
+        autoSubtract: true,
 
         handlers: {
             untap: [],
@@ -49,6 +50,7 @@ const challengeDeck = {
         waitingForSecondMain: (state) => state.waitingForSecondMain,
         waitingForPlayerTurn: (state) => state.waitingForPlayerTurn,
         rulesText: (state) => state.rulesText,
+        autoSubtract: (state) => state.autoSubtract,
     },
 
     actions: {
@@ -56,6 +58,10 @@ const challengeDeck = {
             commit('loadDeck', opponent);
             commit('loadRules', opponent);
             commit('shuffleDeck');
+        },
+
+        changeAutoSubtract({ commit }, value) {
+            commit('changeAutoSubtract', value);
         },
 
         startTurn({ dispatch }) {
@@ -194,6 +200,9 @@ const challengeDeck = {
             });
 
             state.library = library;
+        },
+        changeAutoSubtract(state, value) {
+            state.autoSubtract = value;
         },
         loadRules(state, opponent) {
             switch (opponent) {
@@ -389,7 +398,9 @@ const challengeDeck = {
             state.boardState.forEach(card => {
                 if (card.isAttacking) {
                     if (!card.isBlocked && !card.isBlockedLethal) {
-                        $evt.emit('lose-life', card.power);
+                        if (state.autoSubtract) {
+                            $evt.emit('lose-life', card.power);
+                        }
                     }
 
                     if (card.isBlockedLethal) {
