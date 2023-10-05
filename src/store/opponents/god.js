@@ -86,7 +86,7 @@ export const cards = [
         phaseHandlers: {},
         stateHandlers: {
             enterBattlefield: [
-                function (state) {
+                function (card) {
                     // Xenagos Ascended attacks this turn if able
                 }
             ],
@@ -357,7 +357,7 @@ export const cards = [
         castHandler: null,
         phaseHandlers: {
             combatStart: [
-                function (state) {
+                function (card) {
                     // Whenever a Reveler attacks, Dance of Flame deals 1 damage to each player
                 }
             ]
@@ -382,7 +382,7 @@ export const cards = [
         castHandler: null,
         phaseHandlers: {
             combatStart: [
-                function (state) {
+                function (card) {
                     // all Revelers have haste and attack each turn if able
                 }
             ]

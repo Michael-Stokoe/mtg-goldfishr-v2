@@ -85,7 +85,7 @@ export const cards = [
         castHandler: null,
         phaseHandlers: {
             endStep: [
-                function (state) {
+                function (card) {
                     // reveal top card of library
                     // cast card
                 }
@@ -120,7 +120,7 @@ export const cards = [
         castHandler: null,
         phaseHandlers: {
             endStep: [
-                function (state) {
+                function (card) {
                     // each player takes 1 damage
                 }
             ]
@@ -154,7 +154,7 @@ export const cards = [
         castHandler: null,
         phaseHandlers: {
             endStep: [
-                function (state) {
+                function (card) {
                     // each player discards a card
                 }
             ]
