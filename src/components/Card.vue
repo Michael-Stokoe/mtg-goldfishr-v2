@@ -92,10 +92,11 @@ onUnmounted(() => {
 const showDamage = amount => {
     damageDealt.value = amount;
 
-    $anime({
+    $anime.timeline({
+        duration: 3000,
+    }).add({
         targets: '#damage_dealt',
         translateY: -30,
-        duration: 3000,
     });
 
     setTimeout(() => {

@@ -311,7 +311,6 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -323,7 +322,6 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -335,7 +333,6 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -348,7 +345,6 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -361,7 +357,6 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -374,7 +369,6 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found on board state');
                 return;
             }
 
@@ -391,7 +385,6 @@ const challengeDeck = {
             const index = state.boardState.indexOf(card);
 
             if (index === -1) {
-                throw new Error('Card not found on board state');
                 return;
             }
 
