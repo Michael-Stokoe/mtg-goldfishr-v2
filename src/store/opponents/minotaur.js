@@ -1,5 +1,3 @@
-import challengeDeck from "../challengeDeck";
-
 export const rules = `
 <ul class="ml-6 list-outside list-disc">
     <li>If you're playing a standard 60 card deck, play your first turn, then start the Horde's first turn.</li>
