@@ -1,4 +1,10 @@
 <template>
+    <div v-if="showRulesModal"
+        class="z-[60] absolute flex flex-col max-w-5xl p-6 space-y-4 -translate-x-1/2 -translate-y-1/2 bg-neutral-800 shadow-xl rounded-xl top-1/2 left-1/2">
+        <h2 class="text-3xl font-semibold text-center font-beleren">Rules/How to play</h2>
+        <div class="flex flex-col space-y-2" v-html="rulesText"></div>
+    </div>
+
     <div class="flex justify-center w-full text-center">
         <h1 class="text-6xl font-semibold text-neutral-300">{{ gameTitle }}</h1>
     </div>
@@ -201,6 +207,10 @@ onMounted(() => {
     $evt.on('close-graveyard-modal', () => showGraveyardModal.value = false);
     $evt.on('show-exile-modal', () => showExileModal.value = true);
     $evt.on('close-exile-modal', () => showExileModal.value = false);
+
+    $evt.on('toggle-rules-modal', () => {
+        showRulesModal.value = !showRulesModal.value;
+    });
 });
 
 onUnmounted(() => {
@@ -212,12 +222,14 @@ onUnmounted(() => {
     $evt.off('close-graveyard-modal');
     $evt.off('show-exile-modal');
     $evt.off('close-exile-modal');
+    $evt.off('toggle-rules-modal');
 });
 
 // data
 const disableEndPlayerTurnButton = ref(true);
 const showGraveyardModal = ref(false);
 const showExileModal = ref(false);
+const showRulesModal = ref(false);
 
 // components
 import LifeCounter from '../components/LifeCounter.vue';
@@ -251,6 +263,7 @@ const currentTurn = computed(() => store.getters['currentTurn']);
 const waitingForCombat = computed(() => store.getters['challengeDeck/waitingForCombat']);
 const waitingForBlockers = computed(() => store.getters['challengeDeck/waitingForBlockers']);
 const waitingForPlayerTurn = computed(() => store.getters['challengeDeck/waitingForPlayerTurn']);
+const rulesText = computed(() => store.getters['challengeDeck/rulesText']);
 
 // methods
 const startGame = () => {

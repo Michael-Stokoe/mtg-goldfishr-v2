@@ -18,6 +18,9 @@
     <router-view></router-view>
   </main>
 
+  <div @click="$evt.emit('toggle-rules-modal')" v-show="showRulesModalBackground"
+    class="bg-black opacity-80 absolute top-0 left-0 h-full w-full z-[55]"></div>
+
   <div class="fixed bottom-0 flex flex-col w-full p-6 space-y-2 bg-black">
     <div class="flex justify-center space-x-4">
       <a class="hover:underline hover:text-gray-300" href="https://github.com/Michael-Stokoe/mtg-goldfishr-v2"
@@ -43,10 +46,11 @@ const route = useRoute();
 const router = useRouter();
 
 const holdingControl = ref(false);
+const showRulesModalBackground = ref(false);
 
 const listenerUp = (e) => {
-  e.preventDefault();
   if (e.key === 'ArrowUp') {
+    e.preventDefault();
     if (holdingControl.value) {
       $evt.emit('gain-life', 10);
       return;
@@ -56,6 +60,7 @@ const listenerUp = (e) => {
   }
 
   if (e.key === 'ArrowDown') {
+    e.preventDefault();
     if (holdingControl.value) {
       $evt.emit('lose-life', 10);
       return;
@@ -70,7 +75,6 @@ const listenerUp = (e) => {
 }
 
 const listenerDown = (e) => {
-  e.preventDefault();
   if (e.key === 'Control') {
     holdingControl.value = true;
   }
@@ -80,11 +84,17 @@ onMounted(() => {
   window.addEventListener("keyup", listenerUp);
 
   window.addEventListener("keydown", listenerDown);
+
+  $evt.on('toggle-rules-modal', () => {
+    showRulesModalBackground.value = !showRulesModalBackground.value;
+  });
 });
 
 onUnmounted(() => {
   window.removeEventListener("keyup", listenerUp);
 
   window.removeEventListener("keydown", listenerDown);
+
+  $evt.off('toggle-rules-modal');
 });
 </script>

@@ -1,6 +1,23 @@
 import challengeDeck from "../challengeDeck";
 
-const cards = [
+export const rules = `
+<ul class="ml-6 list-outside list-disc">
+    <li>If you're playing a standard 60 card deck, play your first turn, then start the Horde's first turn.</li>
+    <li>If you're playing a Commander/EDH deck, play out your first 3 turns, then start the Horde's first turn.</li>
+    <li>From now, you should take it in turns as if you're playing a normal game.</li>
+    <li>For an increased challenge, you can reduce the amount of setup turns you take, or allow the Horde to play first.</li>
+    <li>You can also opt to not deal combat damage to the horde, and only win by playing out the game until the horde has no cards left.</li>
+    <li>A red border on a creature will indicate that it is tapped and attacking.</li>
+    <li>When the Horde plays a sorcery, the card will appear on screen above the battlefield until end of turn, and apply any of its effects to the Minotaurs at the appropriate time.</li>
+    <li>Attacking the Horde on your turn will put the top X cards of the Horde's library into its graveyard, X being the amount of damage dealt (do this with the "mill X cards" function).</li>
+    <li>The Horde has infinite mana, and you should assume all costs will be paid (Smothering Tithe, Rhystic Study, etc.).</li>
+    <li>The Horde will ignore any effects that are impossible for it to perform, such as drawing or discarding cards.</li>
+</ul>
+
+<a href="https://mtg.fandom.com/wiki/Battle_the_Horde" class="text-neutral-400 hover:text-white hover:underline" target="_blank">More information here</a>
+`;
+
+export const cards = [
     // Creatures
 
     {

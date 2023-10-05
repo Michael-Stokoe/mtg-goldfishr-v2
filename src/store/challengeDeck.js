@@ -1,5 +1,5 @@
 // import minotaur from './opponents/minotaur-test.js';
-import minotaur from './opponents/minotaur.js';
+import {rules as minotaurRules, cards as minotaur} from './opponents/minotaur.js';
 import Card from '../classes/card.js';
 
 const challengeDeck = {
@@ -16,6 +16,8 @@ const challengeDeck = {
         waitingForBlockers: false,
         waitingForSecondMain: false,
         waitingForPlayerTurn: false,
+
+        rulesText: null,
 
         handlers: {
             untap: [],
@@ -46,11 +48,13 @@ const challengeDeck = {
         waitingForBlockers: (state) => state.waitingForBlockers,
         waitingForSecondMain: (state) => state.waitingForSecondMain,
         waitingForPlayerTurn: (state) => state.waitingForPlayerTurn,
+        rulesText: (state) => state.rulesText,
     },
 
     actions: {
         loadDeck({ commit }, opponent) {
             commit('loadDeck', opponent);
+            commit('loadRules', opponent);
             commit('shuffleDeck');
         },
 
@@ -190,6 +194,16 @@ const challengeDeck = {
             });
 
             state.library = library;
+        },
+        loadRules(state, opponent) {
+            switch (opponent) {
+                case 'minotaur':
+                    state.rulesText = minotaurRules;
+                    break;
+                default:
+                    state.rulesText = null;
+                    break;
+            }
         },
         resetState(state) {
             state.handlers = {

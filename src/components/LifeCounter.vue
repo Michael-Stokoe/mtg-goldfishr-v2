@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col space-y-12 text-center">
+    <div class="flex flex-col space-y-8 text-center">
         <h3 class="text-xl font-semibold font-beleren">Life Counter</h3>
 
         <div class="flex justify-center space-x-4">
@@ -48,6 +48,10 @@
                 <span class="w-full">+10</span>
             </button>
         </div>
+
+        <div class="flex justify-center">
+            <btn :label="'Rules / How To'" @click="toggleRulesModal" />
+        </div>
     </div>
 </template>
 
@@ -59,6 +63,12 @@ import { useRouter, useRoute } from 'vue-router';
 const store = useStore();
 const router = useRouter();
 const route = useRoute();
+
+import Btn from './Btn.vue';
+
+const components = {
+    Btn,
+};
 
 onMounted(() => {
     $evt.on('gain-life', amount => changeLife(amount));
@@ -72,5 +82,9 @@ const startingLife = computed(() => store.getters['lifeCounter/startingLife']);
 // methods
 const changeLife = (amount) => {
     store.dispatch('lifeCounter/changeLife', amount);
+};
+
+const toggleRulesModal = () => {
+    $evt.emit('toggle-rules-modal');
 };
 </script>
