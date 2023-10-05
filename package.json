@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "animejs": "^3.2.1",
     "click-outside-vue3": "^4.0.1",
     "mitt": "^3.0.1",
     "tiny-emitter": "^2.1.0",

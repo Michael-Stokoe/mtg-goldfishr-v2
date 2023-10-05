@@ -1,6 +1,11 @@
 <template>
     <div class="flex">
         <div class="relative" @mouseenter="hovering = true" @mouseleave="hovering = false">
+            <div v-show="!!damageDealt" id="damage_dealt"
+                class="absolute top-0 z-40 px-4 py-2 -translate-x-1/2 bg-red-600 border border-red-900 shadow-lg left-1/2 rounded-xl">
+                <span class="text-xl font-beleren">-{{ damageDealt }}</span>
+            </div>
+
             <div v-if="hovering && !hideOverlay"
                 class="absolute top-0 left-0 z-50 w-full h-full transition-transform bg-black rounded-xl opacity-80" :class="{
                     'rotate-90 translate-x-10': cardIsTapped,
@@ -61,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted, defineProps } from "vue";
+import { ref, computed, watch, onMounted, defineProps, onUnmounted } from "vue";
 import { useStore } from 'vuex';
 import { useRouter, useRoute } from 'vue-router';
 
@@ -71,8 +76,39 @@ const route = useRoute();
 
 const props = defineProps(['card', 'hideOverlay']);
 
-const hovering = ref(false);
+onMounted(() => {
+    $evt.on('card-deals-damage', (card) => {
+        if (card.id === props.card.id) {
+            showDamage(card.power);
+        }
+    });
+});
 
+onUnmounted(() => {
+    $evt.off('card-deals-damage');
+});
+
+// methods
+const showDamage = amount => {
+    damageDealt.value = amount;
+
+    $anime({
+        targets: '#damage_dealt',
+        translateY: -30,
+        duration: 3000,
+    });
+
+    setTimeout(() => {
+        damageDealt.value = null;
+    }, 2500);
+}
+
+// data
+const hovering = ref(false);
+const damageDealt = ref(null);
+const damage_dealt = ref(null);
+
+// computed
 const cardIsTapped = computed(() => props.card.tapped);
 const showAbilities = computed(() => props.card.abilities.length > 0);
 const abilities = computed(() => props.card.abilities);

@@ -5,8 +5,10 @@ import router from './router';
 import store from './store';
 import emitter from './plugins/mitt.js';
 import vClickOutside from "click-outside-vue3";
+import anime from 'animejs';
 
 window.$evt = emitter;
+window.$anime = anime;
 
 const app = createApp(App);
 app.use(router).use(store).use(vClickOutside);

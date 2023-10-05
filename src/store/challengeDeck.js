@@ -440,7 +440,7 @@ const challengeDeck = {
                 if (card.isAttacking) {
                     if (!card.isBlocked && !card.isBlockedLethal) {
                         if (state.autoSubtract) {
-                            $evt.emit('lose-life', card.power);
+                            card.dealsDamage();
                         }
                     }
 
