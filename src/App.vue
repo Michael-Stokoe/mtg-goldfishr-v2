@@ -44,8 +44,9 @@ const router = useRouter();
 
 const holdingControl = ref(false);
 
-const listenerUp = ({ key }) => {
-  if (key === 'ArrowUp') {
+const listenerUp = (e) => {
+  e.preventDefault();
+  if (e.key === 'ArrowUp') {
     if (holdingControl.value) {
       $evt.emit('gain-life', 10);
       return;
@@ -54,7 +55,7 @@ const listenerUp = ({ key }) => {
     $evt.emit('gain-life', 1);
   }
 
-  if (key === 'ArrowDown') {
+  if (e.key === 'ArrowDown') {
     if (holdingControl.value) {
       $evt.emit('lose-life', 10);
       return;
@@ -63,13 +64,14 @@ const listenerUp = ({ key }) => {
     $evt.emit('lose-life', 1);
   }
 
-  if (key === 'Control') {
+  if (e.key === 'Control') {
     holdingControl.value = false;
   }
 }
 
-const listenerDown = ({ key }) => {
-  if (key === 'Control') {
+const listenerDown = (e) => {
+  e.preventDefault();
+  if (e.key === 'Control') {
     holdingControl.value = true;
   }
 }
