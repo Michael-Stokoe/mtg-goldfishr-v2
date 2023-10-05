@@ -19,6 +19,7 @@ export const cards = [
         superTypes: ['Legendary', 'Enchantment', 'Creature'],
         subTypes: ['God'],
         amount: 1,
+        canAttack: false,
 
         power: 6,
         toughness: 5,
@@ -46,6 +47,7 @@ export const cards = [
         superTypes: ['Enchantment', 'Creature'],
         subTypes: ['Nymph', 'Reveler'],
         amount: 2,
+        canAttack: false,
 
         power: 4,
         toughness: 2,
@@ -73,6 +75,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Nymph', 'Reveler'],
         amount: 16,
+        canAttack: false,
 
         power: 2,
         toughness: 2,
@@ -102,6 +105,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Nymph', 'Reveler'],
         amount: 4,
+        canAttack: false,
 
         power: 4,
         toughness: 4,
@@ -127,6 +131,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Nymph', 'Reveler'],
         amount: 6,
+        canAttack: false,
 
         power: 1,
         toughness: 3,
@@ -152,6 +157,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Nymph', 'Reveler'],
         amount: 2,
+        canAttack: false,
         abilities: ['Deathtouch'],
 
         power: 2,
@@ -178,6 +184,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Nymph', 'Reveler'],
         amount: 2,
+        canAttack: false,
         abilities: ['First Strike'],
 
         power: 3,
@@ -205,6 +212,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 7,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -226,6 +234,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -249,6 +258,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 4,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -271,6 +281,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -292,6 +303,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 3,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -312,6 +324,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 5,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -334,6 +347,7 @@ export const cards = [
         superTypes: ['Enchantment'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -358,6 +372,7 @@ export const cards = [
         superTypes: ['Enchantment'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,

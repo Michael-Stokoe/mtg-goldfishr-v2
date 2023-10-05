@@ -1,6 +1,9 @@
 // import minotaur from './opponents/minotaur-test.js';
-import {rules as minotaurRules, cards as minotaur} from './opponents/minotaur.js';
 import Card from '../classes/card.js';
+
+import {rules as minotaurRules, cards as minotaur} from './opponents/minotaur.js';
+import {rules as hydraRules, cards as hydra} from './opponents/hydra.js';
+import {rules as godRules, cards as god} from './opponents/god.js';
 
 const challengeDeck = {
     namespaced: true,
@@ -189,6 +192,8 @@ const challengeDeck = {
         loadDeck(state, opponent) {
             let decklists = {
                 minotaur: minotaur,
+                hydra: hydra,
+                god: god,
             }
 
             const decklist = decklists[opponent];
@@ -216,6 +221,12 @@ const challengeDeck = {
             switch (opponent) {
                 case 'minotaur':
                     state.rulesText = minotaurRules;
+                    break;
+                case 'hydra':
+                    state.rulesText = hydraRules;
+                    break;
+                case 'god':
+                    state.rulesText = godRules;
                     break;
                 default:
                     state.rulesText = null;
@@ -413,7 +424,7 @@ const challengeDeck = {
             state.waitingForCombat = false;
 
             state.boardState.forEach(card => {
-                if (card.superTypes.includes('Creature') && card.tapped === false) {
+                if (card.canAttack && card.tapped === false) {
                     card.isAttacking = true;
                     card.tapped = true;
                 }

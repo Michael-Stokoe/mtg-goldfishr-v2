@@ -17,6 +17,7 @@ export default class Card {
     toughness = null;
     abilities = [];
 
+    canAttack = true;
     isAttacking = false;
     isBlocked = false;
     isBlockedLethal = false;
@@ -76,6 +77,8 @@ export default class Card {
 
         this.stateHandlers = card.stateHandlers;
         this.phaseHandlers = card.phaseHandlers;
+
+        this.canAttack = card.canAttack;
     }
 
     destroy() {

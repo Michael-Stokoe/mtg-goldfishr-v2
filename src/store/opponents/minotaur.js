@@ -27,6 +27,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
         amount: 10,
+        canAttack: true,
 
         power: 3,
         toughness: 2,
@@ -45,6 +46,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
         amount: 15,
+        canAttack: true,
 
         power: 2,
         toughness: 2,
@@ -63,6 +65,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
         amount: 4,
+        canAttack: true,
 
         power: 5,
         toughness: 4,
@@ -88,6 +91,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
         amount: 10,
+        canAttack: true,
 
         power: 2,
         toughness: 3,
@@ -106,6 +110,7 @@ export const cards = [
         superTypes: ['Creature'],
         subTypes: ['Minotaur'],
         amount: 4,
+        canAttack: true,
 
         power: 4,
         toughness: 1,
@@ -132,6 +137,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -167,6 +173,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -202,6 +209,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -229,6 +237,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -264,6 +273,7 @@ export const cards = [
         superTypes: ['Sorcery'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -300,6 +310,7 @@ export const cards = [
         superTypes: ['Artifact'],
         subTypes: [],
         amount: 1,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -331,6 +342,7 @@ export const cards = [
         superTypes: ['Artifact'],
         subTypes: [],
         amount: 1,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -362,6 +374,7 @@ export const cards = [
         superTypes: ['Artifact'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -392,6 +405,7 @@ export const cards = [
         superTypes: ['Artifact'],
         subTypes: [],
         amount: 2,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
@@ -422,6 +436,7 @@ export const cards = [
         superTypes: ['Artifact'],
         subTypes: [],
         amount: 1,
+        canAttack: false,
 
         power: 0,
         toughness: 0,
