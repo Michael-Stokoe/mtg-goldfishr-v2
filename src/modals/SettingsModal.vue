@@ -23,14 +23,15 @@
 
             <div class="relative flex items-start">
                 <div class="flex items-center h-6">
-                    <input v-model="autoResolve" id="auto-resolve" aria-describedby="auto-resolve-description"
+                    <input disabled v-model="autoResolve" id="auto-resolve" aria-describedby="auto-resolve-description"
                         name="auto-resolve" type="checkbox"
                         class="w-4 h-4 rounded text-neutral-600 border-neutral-300 focus:ring-neutral-600">
                 </div>
                 <div class="ml-3 text-sm leading-6">
-                    <label for="auto-resolve" class="font-medium text-neutral-100">Auto-resolve spells</label>
+                    <label for="auto-resolve" class="font-medium text-neutral-400">Auto-resolve spells</label>
                     <p id="auto-resolve-description" class="text-neutral-400">
-                        If you don't run counter-magic, keep this selected.
+                        If you don't run counter-magic, keep this selected. (Disabled until stack interaction feature is
+                        implemented)
                     </p>
                 </div>
             </div>
