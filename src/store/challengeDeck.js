@@ -73,11 +73,8 @@ const challengeDeck = {
         },
 
         startTurn({ dispatch }) {
-            dispatch('resetState');
+            dispatch('clearTurnState');
             dispatch('handleUntap');
-        },
-        resetState({ commit }) {
-            commit('resetState');
         },
         handleUntap({ dispatch, commit }) {
             commit('untapAll');
@@ -224,6 +221,26 @@ const challengeDeck = {
                     state.rulesText = null;
                     break;
             }
+        },
+        clearTurnState(state) {
+            state.handlers = {
+                untap: [],
+                upkeep: [],
+                draw: [],
+                main: [],
+                combatStart: [],
+                combatDamage: [],
+                combatEnd: [],
+                secondMain: [],
+                endStep: [],
+            };
+
+            state.nonPermanentsPlayed = [];
+
+            state.waitingForCombat = false;
+            state.waitingForBlockers = false;
+            state.waitingForSecondMain = false;
+            state.waitingForPlayerTurn = false;
         },
         resetState(state) {
             state.graveyard = [];
