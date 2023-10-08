@@ -77,9 +77,13 @@ const route = useRoute();
 const props = defineProps(['card', 'hideOverlay']);
 
 onMounted(() => {
-    $evt.on('card-deals-damage', (card) => {
+    $evt.on('card-deals-damage', (card, amount) => {
         if (card.id === props.card.id) {
-            showDamage(card.power);
+            if (amount !== null) {
+                showDamage(amount);
+            } else {
+                showDamage(card.power);
+            }
         }
     });
 });

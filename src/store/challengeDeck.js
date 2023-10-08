@@ -35,6 +35,18 @@ const challengeDeck = {
             secondMain: [],
             endStep: [],
         },
+
+        nextTurnHandlers: {
+            untap: [],
+            upkeep: [],
+            draw: [],
+            main: [],
+            combatStart: [],
+            combatDamage: [],
+            combatEnd: [],
+            secondMain: [],
+            endStep: [],
+        }
     }),
 
     getters: {
@@ -95,13 +107,37 @@ const challengeDeck = {
             commit('runBoardStateHandlers', 'draw');
             dispatch('handleMainPhase');
         },
-        handleMainPhase({ dispatch, commit }) {
+        handleMainPhase({ dispatch, commit, state, rootState }) {
             commit('runGamePhaseHandlers', 'main');
             commit('runBoardStateHandlers', 'main');
 
-            dispatch('castSpells', 2);
+            if (state.opponent === 'minotaur') {
+                dispatch('castSpells', 2);
+            }
 
-            commit('waitingForCombat');
+            if (state.opponent === 'hydra') {
+                if (rootState.currentTurn === 1) {
+                    dispatch('findHeads', 2);
+                }
+
+                dispatch('castSpells', 1);
+            }
+
+            if (state.opponent === 'hydra') {
+                dispatch('startCombat');
+            } else {
+                commit('waitingForCombat');
+            }
+        },
+        findHeads({ commit, state }, amount) {
+            for (let i = 0; i < amount; i++) {
+                const index = state.library.findIndex(card => card.name === 'Hydra Head');
+
+                if (index !== -1) {
+                    commit('addCardToBoard', state.library[index]);
+                    commit('removeCardAtIndex', index);
+                }
+            }
         },
         castSpells({ commit, dispatch, state }, amount) {
             for (let i = 0; i < amount; i++) {
@@ -115,10 +151,16 @@ const challengeDeck = {
             commit('millCards', amount);
         },
 
-        startCombat({ commit, dispatch }) {
+        startCombat({ commit, dispatch, state }) {
             commit('runGamePhaseHandlers', 'combatStart');
             commit('runBoardStateHandlers', 'combatStart');
-            commit('startCombat');
+
+            if (state.opponent === 'hydra') {
+                commit('startHydraSpecificCombat');
+                dispatch('handleCombatDamage');
+            } else {
+                commit('startCombat');
+            }
         },
         handleCombatDamage({ dispatch, commit }) {
             commit('runGamePhaseHandlers', 'combatDamage');
@@ -246,6 +288,18 @@ const challengeDeck = {
                 endStep: [],
             };
 
+            state.nextTurnHandlers = {
+                untap: [],
+                upkeep: [],
+                draw: [],
+                main: [],
+                combatStart: [],
+                combatDamage: [],
+                combatEnd: [],
+                secondMain: [],
+                endStep: [],
+            };
+
             state.nonPermanentsPlayed = [];
 
             state.waitingForCombat = false;
@@ -263,6 +317,7 @@ const challengeDeck = {
             state.waitingForBlockers = false;
             state.waitingForSecondMain = false;
             state.waitingForPlayerTurn = false;
+
             state.handlers = {
                 untap: [],
                 upkeep: [],
@@ -274,6 +329,24 @@ const challengeDeck = {
                 secondMain: [],
                 endStep: [],
             };
+
+            state.nextTurnHandlers = {
+                untap: [],
+                upkeep: [],
+                draw: [],
+                main: [],
+                combatStart: [],
+                combatDamage: [],
+                combatEnd: [],
+                secondMain: [],
+                endStep: [],
+            };
+        },
+        addCardToBoard(state, card) {
+            state.boardState.push(card);
+        },
+        removeCardAtIndex(state, index) {
+            state.library.splice(index, 1);
         },
         shuffleDeck(state) {
             let shuffledCards = Object.assign(state.library, []);
@@ -424,6 +497,22 @@ const challengeDeck = {
             });
 
             state.waitingForBlockers = true;
+        },
+
+        startHydraSpecificCombat(state) {
+            state.boardState.forEach(card => {
+                if (card.superTypes.includes('Creature')) {
+                    if (card.subTypes.includes('Head')) {
+                        // if the head is an elite head
+                        if (card.superTypes.includes('Elite')) {
+                            card.dealsDamage(2);
+                        } else {
+                            // Non-elite head
+                            card.dealsDamage(1);
+                        }
+                    }
+                }
+            });
         },
 
         blockersDeclared(state) {

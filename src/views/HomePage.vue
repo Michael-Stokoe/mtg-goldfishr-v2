@@ -18,8 +18,8 @@
         <div class="grid grid-cols-3 gap-6">
             <game-selection-card :gameTitle="'Battle the Horde'" :image="'/images/minotaur.png'"
                 :gameDescription="'Face of against the relentless Minotaur Horde'" :gameName="'minotaur'" />
-            <game-selection-card :gameTitle="'Face the Hydra'" :image="'/images/hydra.png'" :disabled="true"
-                :gameName="'hydra'" :gameDescription="'Cut off a head, another grows back.'" />
+            <game-selection-card :gameTitle="'Face the Hydra'" :image="'/images/hydra.png'" :gameName="'hydra'"
+                :disabled="true" :gameDescription="'Cut off a head, another grows back.'" />
             <game-selection-card :gameTitle="'Defeat a God'" :image="'/images/god.png'" :disabled="true" :gameName="'god'"
                 :gameDescription="'Xenagos and his revelers are coming for you.'" />
         </div>

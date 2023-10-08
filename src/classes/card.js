@@ -101,8 +101,13 @@ export default class Card {
         this.abilities = this.abilities.filter(a => a !== ability);
     }
 
-    dealsDamage() {
-        $evt.emit('lose-life', this.power);
+    dealsDamage(amount = null) {
+        if (amount !== null) {
+            $evt.emit('lose-life', amount);
+        } else {
+            $evt.emit('lose-life', this.power);
+        }
+
         $evt.emit('card-deals-damage', this);
     }
 }
